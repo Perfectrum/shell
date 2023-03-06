@@ -11,12 +11,36 @@ public class UI
         Console.ForegroundColor = ConsoleColor.White;
         Console.Write(prompt);
 
-        string? request = Console.ReadLine();
-        while (request != null && request.EndsWith('\\'))
+        var request = Console.ReadLine();
+
+        if (request!.Length == 0)
         {
-            request = request.Remove(request.Length-1) + Console.ReadLine();
+            return "";
         }
 
+        switch (request.Last())
+        {
+            case '\\':
+                while (request.EndsWith('\\'))
+                {
+                    request = request.Remove(request.Length-1) + Console.ReadLine();
+                }
+                break;
+            case '"':
+                request += Console.ReadLine();
+                while (!request.EndsWith('"'))
+                {
+                    request += Console.ReadLine();
+                }
+                break;
+            case '\'':
+                request += Console.ReadLine();
+                while (!request.EndsWith('\''))
+                {
+                    request += Console.ReadLine();
+                }
+                break;
+        }
         return request;
     }
 
