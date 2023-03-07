@@ -2,9 +2,9 @@ namespace Shell.Command.Integrated;
 
 using Shell.Enviroment;
 
-class WsCommand : Command
+class WcCommand : Command
 {
-    public WsCommand(TextReader i, TextWriter o, ShellEnvironment e)
+    public WcCommand(TextReader i, TextWriter o, ShellEnvironment e)
         : base(i, o, e) { }
 
     protected override int Go(string[] args)

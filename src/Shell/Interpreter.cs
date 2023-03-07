@@ -14,7 +14,7 @@ public class Interpreter
     public Interpreter()
     {
         CommandResolver.RegisterBuiltIn("echo", (r, w, e) => new EchoCommand(r, w, e));
-        CommandResolver.RegisterBuiltIn("ws", (r, w, e) => new WsCommand(r, w, e));
+        CommandResolver.RegisterBuiltIn("wc", (r, w, e) => new WcCommand(r, w, e));
         CommandResolver.RegisterBuiltIn("cat", (r, w, e) => new CatCommand(r, w, e));
 
         CommandResolver.RegisterInternal("exit", () => new ExitCommand());

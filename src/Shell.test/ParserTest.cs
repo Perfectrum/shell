@@ -5,6 +5,8 @@ using Shell.Enviroment;
 using Shell.Expression;
 using System.Linq;
 
+#if DEBUG || TEST
+
 [Collection("Parser tests")]
 public class ParserTest
 {
@@ -156,3 +158,5 @@ public class ParserTest
         );
     }
 }
+
+#endif
