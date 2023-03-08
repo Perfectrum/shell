@@ -1,16 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.0.31903.59
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32602.291
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shell", "Shell\Shell.csproj", "{825FF904-1401-47EE-BC43-0C11017B04AD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shell.test", "Shell.test\Shell.test.csproj", "{7CC2FFFF-01B5-4C35-828F-A5A786406355}"
 EndProject
 Global
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|x64 = Debug|x64
@@ -44,5 +41,11 @@ Global
 		{7CC2FFFF-01B5-4C35-828F-A5A786406355}.Release|x64.Build.0 = Release|Any CPU
 		{7CC2FFFF-01B5-4C35-828F-A5A786406355}.Release|x86.ActiveCfg = Release|Any CPU
 		{7CC2FFFF-01B5-4C35-828F-A5A786406355}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {969674EE-1118-479E-80C4-B8067DB5230B}
 	EndGlobalSection
 EndGlobal
