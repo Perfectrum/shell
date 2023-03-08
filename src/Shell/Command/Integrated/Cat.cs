@@ -13,10 +13,17 @@ class CatCommand : Command
         {
             try
             {
-                var content = File.ReadAllLines(arg);
-                StdOut.WriteLine(string.Join("\n", content));
+                using(StreamReader sr = new StreamReader(arg))
+                {
+                    string line;
+                    while ((line = sr.ReadLine()) != null)
+                    {
+                        StdOut.WriteLine(line);
+                    }
+                }
             }
-            catch (FileNotFoundException) {
+            catch (FileNotFoundException)
+            {
                 StdOut.WriteLine("cat: " + arg + " No such file or directory");
             }
         }

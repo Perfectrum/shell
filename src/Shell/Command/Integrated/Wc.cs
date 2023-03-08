@@ -13,25 +13,27 @@ class WcCommand : Command
         {
             try 
             {
-                var content = File.ReadLines(arg);
-                var byteContent = File.ReadAllBytes(arg);
-
                 int linesCount = 0;
-                int bytesCount = byteContent.Length;                
+                long bytesCount = new System.IO.FileInfo(arg).Length;               
                 int wordsCount = 0;
-                foreach (var line in content) 
-                {
-                    linesCount += 1;
-                    wordsCount += line.Split().Length;
-                }
 
+            using(StreamReader sr = new StreamReader(arg))
+                {
+                    string line;
+                    while ((line = sr.ReadLine()) != null)
+                    {
+                        linesCount += 1;
+                        wordsCount += line == "" ? 0 : line.Split().Length;
+                    }
+                }
+                        
                 StdOut.WriteLine(linesCount.ToString() + " " +
                                  wordsCount.ToString() + " " +
                                  bytesCount.ToString() + " " + arg);
             }
             catch (FileNotFoundException)
             {
-                StdOut.WriteLine("cat: " + arg + " No such file or directory");
+                StdOut.WriteLine("wc: " + arg + " No such file or directory");
             }
         }
         return 0;
