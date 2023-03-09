@@ -7,15 +7,15 @@ class CatCommand : Command
     public CatCommand(TextReader i, TextWriter o, ShellEnvironment e)
         : base(i, o, e) { }
 
-    protected override int Go(string[] args) 
-    {   
+    protected override int Go(string[] args)
+    {
         foreach (var arg in args)
         {
             try
             {
-                using(StreamReader sr = new StreamReader(arg))
+                using (StreamReader sr = new StreamReader(arg))
                 {
-                    string line;
+                    string? line;
                     while ((line = sr.ReadLine()) != null)
                     {
                         StdOut.WriteLine(line);
@@ -25,6 +25,7 @@ class CatCommand : Command
             catch (FileNotFoundException)
             {
                 StdOut.WriteLine("cat: " + arg + " No such file or directory");
+                return -1;
             }
         }
         return 0;

@@ -9,24 +9,24 @@ class WcCommand : Command
 
     protected override int Go(string[] args)
     {
- foreach (var arg in args)
+        foreach (var arg in args)
         {
-            try 
+            try
             {
                 int linesCount = 0;
-                long bytesCount = new System.IO.FileInfo(arg).Length;               
+                long bytesCount = new System.IO.FileInfo(arg).Length;
                 int wordsCount = 0;
 
-            using(StreamReader sr = new StreamReader(arg))
+                using (StreamReader sr = new StreamReader(arg))
                 {
-                    string line;
+                    string? line;
                     while ((line = sr.ReadLine()) != null)
                     {
                         linesCount += 1;
                         wordsCount += line == "" ? 0 : line.Split().Length;
                     }
                 }
-                        
+
                 StdOut.WriteLine(linesCount.ToString() + " " +
                                  wordsCount.ToString() + " " +
                                  bytesCount.ToString() + " " + arg);
@@ -34,6 +34,7 @@ class WcCommand : Command
             catch (FileNotFoundException)
             {
                 StdOut.WriteLine("wc: " + arg + " No such file or directory");
+                return -1;
             }
         }
         return 0;

@@ -38,159 +38,159 @@ public class ParseAutomaton
             switch (state)
             {
                 case ParseState.SPACE:
-                {
-                    if (!Char.IsWhiteSpace(s))
                     {
-                        prev = state;
-                        if (s == '$')
+                        if (!Char.IsWhiteSpace(s))
                         {
-                            state = ParseState.VARIABLE;
-                        }
-                        else if (s == '\'' && !escaped)
-                        {
-                            state = ParseState.STRONG_Q;
-                        }
-                        else if (s == '"' && !escaped)
-                        {
-                            state = ParseState.WEAK_Q;
-                        }
-                        else if (s == '=')
-                        {
-                            Reduce(new EqToken());
+                            prev = state;
+                            if (s == '$')
+                            {
+                                state = ParseState.VARIABLE;
+                            }
+                            else if (s == '\'' && !escaped)
+                            {
+                                state = ParseState.STRONG_Q;
+                            }
+                            else if (s == '"' && !escaped)
+                            {
+                                state = ParseState.WEAK_Q;
+                            }
+                            else if (s == '=')
+                            {
+                                Reduce(new EqToken());
+                            }
+                            else
+                            {
+                                buffer += s;
+                                state = ParseState.WORD;
+                            }
                         }
                         else
                         {
-                            buffer += s;
-                            state = ParseState.WORD;
+                            Reduce(new WsToken(s));
                         }
+                        break;
                     }
-                    else
-                    {
-                        Reduce(new WsToken(s));
-                    }
-                    break;
-                }
                 case ParseState.STRONG_Q:
-                {
-                    if (s == '\'' && !escaped)
                     {
-                        Reduce(new WordToken(buffer) { Original = $"'{buffer}'" });
-                        buffer = "";
-                        state = ParseState.SPACE;
-                    }
-                    else
-                    {
-                        buffer += s;
-                    }
-                    break;
-                }
-                case ParseState.WORD:
-                {
-                    if (Char.IsWhiteSpace(s))
-                    {
-                        Reduce(new WordToken(buffer));
-                        Reduce(new WsToken());
-                        buffer = "";
-                        state = ParseState.SPACE;
-                    }
-                    else if (s == '=' && !escaped)
-                    {
-                        Reduce(new WordToken(buffer));
-                        Reduce(new EqToken());
-                        buffer = "";
-                        state = ParseState.SPACE;
-                    }
-                    else if (s == '\'' && !escaped)
-                    {
-                        Reduce(new WordToken(buffer));
-                        buffer = "";
-                        state = ParseState.STRONG_Q;
-                    }
-                    else if (s == '"' && !escaped)
-                    {
-                        Reduce(new WordToken(buffer));
-                        buffer = "";
-                        state = ParseState.WEAK_Q;
-                    }
-                    else if (s == '$' && !escaped)
-                    {
-                        Reduce(new WordToken(buffer));
-                        buffer = "";
-                        state = ParseState.VARIABLE;
-                    }
-                    else
-                    {
-                        buffer += s;
-                    }
-                    break;
-                }
-                case ParseState.WEAK_Q:
-                {
-                    if (s == '"' && !escaped)
-                    {
-                        Reduce(new WordToken(buffer) { Original = $"'{buffer}'" });
-                        buffer = "";
-                        state = ParseState.SPACE;
-                    }
-                    else if (s == '$' && !escaped)
-                    {
-                        Reduce(new WordToken(buffer) { Original = $"'{buffer}" });
-                        buffer = "";
-                        prev = ParseState.WEAK_Q;
-                        state = ParseState.VARIABLE;
-                    }
-                    else
-                    {
-                        buffer += s;
-                    }
-                    break;
-                }
-                case ParseState.VARIABLE:
-                {
-                    if (Char.IsWhiteSpace(s))
-                    {
-                        Reduce(new TemplateToken(buffer));
-                        Reduce(new WsToken());
-                        buffer = "";
-                        state = prev;
-                    }
-                    else if (s == '\'')
-                    {
-                        Reduce(new TemplateToken(buffer));
-                        buffer = "";
-                        state = ParseState.STRONG_Q;
-                    }
-                    else if (s == '"')
-                    {
-                        Reduce(new TemplateToken(buffer));
-                        buffer = "";
-                        if (prev == ParseState.WEAK_Q)
+                        if (s == '\'' && !escaped)
                         {
-                            Reduce(new CorrectionToken("\'"));
+                            Reduce(new WordToken(buffer) { Original = $"'{buffer}'" });
+                            buffer = "";
                             state = ParseState.SPACE;
                         }
                         else
                         {
+                            buffer += s;
+                        }
+                        break;
+                    }
+                case ParseState.WORD:
+                    {
+                        if (Char.IsWhiteSpace(s))
+                        {
+                            Reduce(new WordToken(buffer));
+                            Reduce(new WsToken());
+                            buffer = "";
+                            state = ParseState.SPACE;
+                        }
+                        else if (s == '=' && !escaped)
+                        {
+                            Reduce(new WordToken(buffer));
+                            Reduce(new EqToken());
+                            buffer = "";
+                            state = ParseState.SPACE;
+                        }
+                        else if (s == '\'' && !escaped)
+                        {
+                            Reduce(new WordToken(buffer));
+                            buffer = "";
+                            state = ParseState.STRONG_Q;
+                        }
+                        else if (s == '"' && !escaped)
+                        {
+                            Reduce(new WordToken(buffer));
+                            buffer = "";
                             state = ParseState.WEAK_Q;
                         }
+                        else if (s == '$' && !escaped)
+                        {
+                            Reduce(new WordToken(buffer));
+                            buffer = "";
+                            state = ParseState.VARIABLE;
+                        }
+                        else
+                        {
+                            buffer += s;
+                        }
+                        break;
                     }
-                    else if (s == '$')
+                case ParseState.WEAK_Q:
                     {
-                        Reduce(new TemplateToken(buffer));
-                        buffer = "";
+                        if (s == '"' && !escaped)
+                        {
+                            Reduce(new WordToken(buffer) { Original = $"'{buffer}'" });
+                            buffer = "";
+                            state = ParseState.SPACE;
+                        }
+                        else if (s == '$' && !escaped)
+                        {
+                            Reduce(new WordToken(buffer) { Original = $"'{buffer}" });
+                            buffer = "";
+                            prev = ParseState.WEAK_Q;
+                            state = ParseState.VARIABLE;
+                        }
+                        else
+                        {
+                            buffer += s;
+                        }
+                        break;
                     }
-                    else if (!(Char.IsLetterOrDigit(s) || s == '_'))
+                case ParseState.VARIABLE:
                     {
-                        Reduce(new TemplateToken(buffer));
-                        buffer = "";
-                        state = prev;
+                        if (Char.IsWhiteSpace(s))
+                        {
+                            Reduce(new TemplateToken(buffer));
+                            Reduce(new WsToken());
+                            buffer = "";
+                            state = prev;
+                        }
+                        else if (s == '\'')
+                        {
+                            Reduce(new TemplateToken(buffer));
+                            buffer = "";
+                            state = ParseState.STRONG_Q;
+                        }
+                        else if (s == '"')
+                        {
+                            Reduce(new TemplateToken(buffer));
+                            buffer = "";
+                            if (prev == ParseState.WEAK_Q)
+                            {
+                                Reduce(new CorrectionToken("\'"));
+                                state = ParseState.SPACE;
+                            }
+                            else
+                            {
+                                state = ParseState.WEAK_Q;
+                            }
+                        }
+                        else if (s == '$')
+                        {
+                            Reduce(new TemplateToken(buffer));
+                            buffer = "";
+                        }
+                        else if (!(Char.IsLetterOrDigit(s) || s == '_'))
+                        {
+                            Reduce(new TemplateToken(buffer));
+                            buffer = "";
+                            state = prev;
+                        }
+                        else
+                        {
+                            buffer += s;
+                        }
+                        break;
                     }
-                    else
-                    {
-                        buffer += s;
-                    }
-                    break;
-                }
             }
 
             escaped = false;
