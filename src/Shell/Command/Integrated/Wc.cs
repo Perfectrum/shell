@@ -9,7 +9,34 @@ class WcCommand : Command
 
     protected override int Go(string[] args)
     {
-        StdOut.WriteLine("Not implemented!");
-        return -1;
+        foreach (var arg in args)
+        {
+            try
+            {
+                int linesCount = 0;
+                long bytesCount = new System.IO.FileInfo(arg).Length;
+                int wordsCount = 0;
+
+                using (StreamReader sr = new StreamReader(arg))
+                {
+                    string? line;
+                    while ((line = sr.ReadLine()) != null)
+                    {
+                        linesCount += 1;
+                        wordsCount += line == "" ? 0 : line.Split().Length;
+                    }
+                }
+
+                StdOut.WriteLine(linesCount.ToString() + " " +
+                                 wordsCount.ToString() + " " +
+                                 bytesCount.ToString() + " " + arg);
+            }
+            catch (FileNotFoundException)
+            {
+                StdOut.WriteLine("wc: " + arg + " No such file or directory");
+                return -1;
+            }
+        }
+        return 0;
     }
 }
