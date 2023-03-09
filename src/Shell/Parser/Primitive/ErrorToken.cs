@@ -3,6 +3,10 @@ namespace Shell.Parser.Primitive;
 using Shell.Expression;
 using System.Collections.Generic;
 
+/// <summary>
+///     Заведомо ложный токен. Сигнализирует о том, что 
+///     парсинг сломался. 
+/// </summary>
 public class ErrorToken : Token
 {
     public ErrorToken()

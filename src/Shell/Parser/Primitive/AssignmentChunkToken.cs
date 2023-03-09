@@ -4,8 +4,16 @@ using Shell.Expression;
 using Shell;
 using System.Collections.Generic;
 
+/// <summary>
+///     AssingmentChunkToken = WordToken EqToken 
+///     <br>
+///     Например a=
+/// </summary>
 public class AssingmentChunkToken : Token
 {
+    /// <summary>
+    ///     Значение переменной для присваивания
+    /// </summary>
     public string Value { get; }
 
     public AssingmentChunkToken(string value)

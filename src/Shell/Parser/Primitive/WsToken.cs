@@ -3,6 +3,11 @@ namespace Shell.Parser.Primitive;
 using System.Collections.Generic;
 using Shell.Expression;
 
+/// <summary>
+///     WordToken = WHITESPACE
+///     <br>
+///     Например: ' ' или '\n'
+/// </summary>
 public class WsToken : Token
 {
     public WsToken(string ws = " ")

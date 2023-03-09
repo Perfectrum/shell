@@ -4,14 +4,26 @@ using Shell.Expression;
 using System.Collections.Generic;
 using System.Linq;
 
+/// <summary>
+///     Пара из названия переменной и значения для присваивания
+/// </summary>
 public class VarPair
 {
     public string Name { get; set; } = "";
     public string Value { get; set; } = "";
 }
 
+/// <summary>
+///     AssingmentToken = AssingmentChunkToken CommandToken
+///                      / AssingmentToken AssingmentToken
+///     <br>
+///     Например a=423 или a=423 b=x
+/// </summary>
 public class AssingmentToken : Token
 {
+    /// <summary>
+    ///     Массив присваиваний 
+    /// </summary>
     public List<VarPair> Values { get; }
 
     public AssingmentToken(string name, string value)

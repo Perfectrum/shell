@@ -3,10 +3,26 @@ namespace Shell.Parser.Primitive;
 using Shell.Expression;
 using System.Collections.Generic;
 
+/// <summary>
+///     CommandToken = AssingmentToken CommandToken
+///                      | CommandToken CommandToken
+///                      | WordToken WsToken  
+///     <br>
+///     Например echo или echo a b или a=3 echo a b
+/// </summary>
 public class CommandToken : Token
 {
+    /// <summary>
+    ///     Имя команды
+    /// </summary>
     public string Name { get; }
+    /// <summary>
+    ///     Присваивания переменных для этой команды
+    /// </summary>
     public AssingmentToken? Assignments { get; private set; }
+    /// <summary>
+    ///     Аргументы команды
+    /// </summary>
     public List<string> Arguments { get; }
 
     public CommandToken(string value)

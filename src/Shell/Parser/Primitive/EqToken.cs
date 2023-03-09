@@ -3,6 +3,9 @@ namespace Shell.Parser.Primitive;
 using Shell.Expression;
 using System.Collections.Generic;
 
+/// <summary>
+///     EqToken = '='
+/// </summary>
 public class EqToken : Token
 {
     public EqToken()

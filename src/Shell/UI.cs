@@ -8,7 +8,7 @@ using System;
 public class UI
 {
     private readonly string prompt = "$ ";
-    
+
     public enum State
     {
         Normal,
@@ -95,7 +95,7 @@ public class UI
     {
         Console.ForegroundColor = ConsoleColor.White;
         Console.Write(prompt);
-        
+
         string? request = Console.ReadLine();
         State state = CheckLineBreak(request ?? "");
 
@@ -108,7 +108,7 @@ public class UI
         {
             if (state == State.Backslash)
             {
-                request = (request?.Substring(0, request.Length-1) ?? "");
+                request = (request?.Substring(0, request.Length - 1) ?? "");
             }
             else
             {

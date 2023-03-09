@@ -3,6 +3,11 @@ namespace Shell.Parser.Primitive;
 using System.Collections.Generic;
 using Shell.Expression;
 
+/// <summary>
+///     WordToken = Word | WordToken WordToken
+///     <br>
+///     Например: echo или 'e'ch"o"
+/// </summary>
 public class WordToken : Token
 {
     public string Value { get; }
