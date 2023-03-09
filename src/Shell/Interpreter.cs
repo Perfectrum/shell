@@ -6,6 +6,14 @@ using Shell.Command;
 using Shell.Command.Integrated;
 using Shell.Command.Hidden;
 
+/// <summary>
+/// Класс интерпретатора.
+/// </summary>
+/// <description>
+/// Инициализирует окружение и парсер. Принимает пользовательский ввод, передает его интерпретатору и возвращает объект
+/// результата (Result) с соответствующим результатом.
+/// </description>
+
 public class Interpreter
 {
     private ShellEnvironment _env = new ShellEnvironment();
@@ -20,7 +28,12 @@ public class Interpreter
         CommandResolver.RegisterInternal("exit", () => new ExitCommand());
         CommandResolver.RegisterInternal("pwd", () => new PwdCommand());
     }
-
+    
+    /// <summary>
+    /// Обработка пользовательского ввода.
+    /// </summary>
+    /// <param name="request">Пользовательский ввод в виде строки.</param>
+    /// <returns>Объект класса Result - результат обработки команды.</returns>
     public Result<bool> ProcessRequest(string? request)
     {
         return _parser

@@ -9,57 +9,57 @@ public class CheckLineBreakTest
     [Fact]
     public void EndsWithBackslash()
     {
-        Assert.Equal(ui.CheckLineBreak("\\"), UI.State.Backslash);
-        Assert.Equal(ui.CheckLineBreak("\\ "), UI.State.Normal);
+        Assert.Equal(expected: UI.State.Backslash, actual: ui.CheckLineBreak("\\"));
+        Assert.Equal(expected: UI.State.Normal, actual: ui.CheckLineBreak("\\ "));
 
-        Assert.Equal(ui.CheckLineBreak("\\\\"), UI.State.Normal);
-        Assert.Equal(ui.CheckLineBreak("\\ \\"), UI.State.Backslash);
+        Assert.Equal(expected: UI.State.Normal, actual: ui.CheckLineBreak("\\\\"));
+        Assert.Equal(expected: UI.State.Backslash, actual: ui.CheckLineBreak("\\ \\"));
 
-        Assert.Equal(ui.CheckLineBreak("\\\\ \\"), UI.State.Backslash);
-        Assert.Equal(ui.CheckLineBreak("\\ \\\\"), UI.State.Normal);
+        Assert.Equal(expected: UI.State.Backslash, actual: ui.CheckLineBreak("\\\\ \\"));
+        Assert.Equal(expected: UI.State.Normal, actual: ui.CheckLineBreak("\\ \\\\"));
     }
 
     [Fact]
     public void SingleQuotes()
     {
-        Assert.Equal(ui.CheckLineBreak("'"), UI.State.SingleQuote);
-        Assert.Equal(ui.CheckLineBreak("''"), UI.State.Normal);
-        Assert.Equal(ui.CheckLineBreak("'''"), UI.State.SingleQuote);
-        Assert.Equal(ui.CheckLineBreak("'smth'"), UI.State.Normal);
-        Assert.Equal(ui.CheckLineBreak("'smth"), UI.State.SingleQuote);
-        Assert.Equal(ui.CheckLineBreak("smth'"), UI.State.SingleQuote);
+        Assert.Equal(expected: UI.State.SingleQuote, actual: ui.CheckLineBreak("'"));
+        Assert.Equal(expected: UI.State.Normal, actual: ui.CheckLineBreak("''"));
+        Assert.Equal(expected: UI.State.SingleQuote, actual: ui.CheckLineBreak("'''"));
+        Assert.Equal(expected: UI.State.Normal, actual: ui.CheckLineBreak("'smth'"));
+        Assert.Equal(expected: UI.State.SingleQuote, actual: ui.CheckLineBreak("'smth"));
+        Assert.Equal(expected: UI.State.SingleQuote, actual: ui.CheckLineBreak("smth'"));
     }
 
     [Fact]
     public void DoubleQuotes()
     {
-        Assert.Equal(ui.CheckLineBreak("\""), UI.State.DoubleQuote);
-        Assert.Equal(ui.CheckLineBreak("\"\""), UI.State.Normal);
-        Assert.Equal(ui.CheckLineBreak("\"\"\""), UI.State.DoubleQuote);
-        Assert.Equal(ui.CheckLineBreak("\"smth\""), UI.State.Normal);
-        Assert.Equal(ui.CheckLineBreak("\"smth"), UI.State.DoubleQuote);
-        Assert.Equal(ui.CheckLineBreak("smth\""), UI.State.DoubleQuote);
+        Assert.Equal(expected: UI.State.DoubleQuote, actual: ui.CheckLineBreak("\""));
+        Assert.Equal(expected: UI.State.Normal, actual: ui.CheckLineBreak("\"\""));
+        Assert.Equal(expected: UI.State.DoubleQuote, actual: ui.CheckLineBreak("\"\"\""));
+        Assert.Equal(expected: UI.State.Normal, actual: ui.CheckLineBreak("\"smth\""));
+        Assert.Equal(expected: UI.State.DoubleQuote, actual: ui.CheckLineBreak("\"smth"));
+        Assert.Equal(expected: UI.State.DoubleQuote, actual: ui.CheckLineBreak("smth\""));
     }
 
     [Fact]
     public void QoutesMix()
     {
-        Assert.Equal(ui.CheckLineBreak("\"'\""), UI.State.Normal);
-        Assert.Equal(ui.CheckLineBreak("'\"'"), UI.State.Normal);
-        Assert.Equal(ui.CheckLineBreak("'\""), UI.State.SingleQuote);
-        Assert.Equal(ui.CheckLineBreak("\"'"), UI.State.DoubleQuote);
-        Assert.Equal(ui.CheckLineBreak(" '\"'\"'\" "), UI.State.Normal);
-        Assert.Equal(ui.CheckLineBreak("\"'\"'\"'\""), UI.State.DoubleQuote);
+        Assert.Equal(expected: UI.State.Normal,actual: ui.CheckLineBreak("\"'\""));
+        Assert.Equal(expected: UI.State.Normal, actual: ui.CheckLineBreak("'\"'"));
+        Assert.Equal(expected: UI.State.SingleQuote, actual: ui.CheckLineBreak("'\""));
+        Assert.Equal(expected: UI.State.DoubleQuote, actual: ui.CheckLineBreak("\"'"));
+        Assert.Equal(expected: UI.State.Normal, actual: ui.CheckLineBreak(" '\"'\"'\" "));
+        Assert.Equal(expected: UI.State.DoubleQuote, actual: ui.CheckLineBreak("\"'\"'\"'\""));
     }
 
     [Fact]
     public void BackslahQuotesMix()
     {
-        Assert.Equal(ui.CheckLineBreak("\\\""), UI.State.Normal);
-        Assert.Equal(ui.CheckLineBreak("\\'"), UI.State.Normal);
-        Assert.Equal(ui.CheckLineBreak("'\\"), UI.State.SingleQuote);
-        Assert.Equal(ui.CheckLineBreak("''\\"), UI.State.Backslash);
-        Assert.Equal(ui.CheckLineBreak("\"\"\\"), UI.State.Backslash);
-        Assert.Equal(ui.CheckLineBreak("'\\'"), UI.State.Normal);
+        Assert.Equal(expected: UI.State.Normal, actual: ui.CheckLineBreak("\\\""));
+        Assert.Equal(expected: UI.State.Normal, actual: ui.CheckLineBreak("\\'"));
+        Assert.Equal(expected: UI.State.SingleQuote, actual: ui.CheckLineBreak("'\\"));
+        Assert.Equal(expected: UI.State.Backslash, actual: ui.CheckLineBreak("''\\"));
+        Assert.Equal(expected: UI.State.Backslash, actual: ui.CheckLineBreak("\"\"\\"));
+        Assert.Equal(expected: UI.State.Normal, actual: ui.CheckLineBreak("'\\'"));
     }
 }
