@@ -2,13 +2,14 @@ namespace Shell.Command.Integrated;
 
 using Shell.Enviroment;
 
-class CatCommand : Command
+public class CatCommand : Command
 {
     public CatCommand(TextReader i, TextWriter o, ShellEnvironment e)
         : base(i, o, e) { }
 
     protected override int Go(string[] args)
     {
+        int returnCode = 0;
         foreach (var arg in args)
         {
             try
@@ -25,9 +26,9 @@ class CatCommand : Command
             catch (FileNotFoundException)
             {
                 StdOut.WriteLine("cat: " + arg + " No such file or directory");
-                return -1;
+                returnCode = -1;
             }
         }
-        return 0;
+        return returnCode;
     }
 }
