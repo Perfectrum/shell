@@ -91,13 +91,13 @@ public class UI
         return s.Any() ? s.Peek() : State.Normal;
     }
 
-public string GetCommand()
+    public string? GetCommand()
     {
         Console.ForegroundColor = ConsoleColor.White;
         Console.Write(prompt);
         
-        var request = Console.ReadLine();
-        State state = CheckLineBreak(request);
+        string? request = Console.ReadLine();
+        State state = CheckLineBreak(request ?? "");
 
         if (state == State.Normal)
         {
@@ -108,7 +108,7 @@ public string GetCommand()
         {
             if (state == State.Backslash)
             {
-                request = request.Substring(0, request.Length-1);
+                request = (request?.Substring(0, request.Length-1) ?? "");
             }
             else
             {
@@ -118,8 +118,6 @@ public string GetCommand()
             state = CheckLineBreak(request);
 
         }
-        
-        Console.WriteLine(state);
 
         return request;
     }
