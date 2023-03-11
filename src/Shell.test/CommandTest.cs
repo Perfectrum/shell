@@ -13,7 +13,7 @@ using System;
 
 [Collection("Command tests")]
 public class CommandTest
-{
+{   
     [Fact]
     public void EchoTest()
     {
@@ -28,19 +28,21 @@ public class CommandTest
         testEchoWithArgs(args3);
     }
 
+    private string extractOutput(Command command,
+                string[] args, MemoryStream stream) {
+        command.Go(args);  
+        command.StdOut.Flush();
+        stream.Position = 0;
+        return (new StreamReader(stream)).ReadToEnd();
+    }
+
     private void testEchoWithArgs(string [] args) {
         var stream = new MemoryStream();
         var streamWriter = new StreamWriter(stream);
         var echo = new EchoCommand(new StreamReader(new MemoryStream()),
                                    streamWriter, new ShellEnvironment());
         string expected = String.Join(' ', args);
-
-        echo.Go(args);     
-        streamWriter.Flush();
-        stream.Position = 0;
-        string output = (new StreamReader(stream)).ReadToEnd();
-
-        Assert.True(output.StartsWith(expected));
+        Assert.True(extractOutput(echo, args, stream).StartsWith(expected));
     }
 
     [Fact]
@@ -67,11 +69,7 @@ public class CommandTest
         var streamWriter = new StreamWriter(stream);
         var cat = new CatCommand(new StreamReader(new MemoryStream()),
                                    streamWriter, new ShellEnvironment());
-        
-        cat.Go(new string [] {path});     
-        streamWriter.Flush();
-        stream.Position = 0;
-        string output = (new StreamReader(stream)).ReadToEnd();
+        string output = extractOutput(cat, new string [] {path}, stream);
         
         foreach (var line in lines)
         {
@@ -110,12 +108,8 @@ public class CommandTest
         var wc = new WcCommand(new StreamReader(new MemoryStream()),
                                 streamWriter, new ShellEnvironment());
         
-        wc.Go(new string [] {path});     
-        streamWriter.Flush();
-        stream.Position = 0;
-        
-        string output = (new StreamReader(stream)).ReadToEnd();
-        Assert.True(RemoveSpaces(output).StartsWith(expected));
+        Assert.True(RemoveSpaces(
+            extractOutput(wc, new string [] {path}, stream)).StartsWith(expected));
     }
 
  private string RemoveSpaces(string input)

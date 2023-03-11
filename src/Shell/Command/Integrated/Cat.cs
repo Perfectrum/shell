@@ -9,7 +9,7 @@ public class CatCommand : Command
 
     public override int Go(string[] args)
     {
-
+        string? s = this.StdIn.ReadLine();
         int returnCode = 0;
         foreach (var arg in args)
         {
