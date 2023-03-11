@@ -7,10 +7,8 @@ public class WcCommand : Command
     public WcCommand(TextReader i, TextWriter o, ShellEnvironment e)
         : base(i, o, e) { }
 
-    protected override int Go(string[] args)
+    public override int Go(string[] args)
     {
-        StdOut.WriteLine("GOGOGO");
-
         int returnCode = 0;
         foreach (var arg in args)
         {

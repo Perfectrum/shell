@@ -7,7 +7,7 @@ public class CatCommand : Command
     public CatCommand(TextReader i, TextWriter o, ShellEnvironment e)
         : base(i, o, e) { }
 
-    protected override int Go(string[] args)
+    public override int Go(string[] args)
     {
         int returnCode = 0;
         foreach (var arg in args)

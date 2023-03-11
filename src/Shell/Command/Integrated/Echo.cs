@@ -7,7 +7,7 @@ public class EchoCommand : Command
     public EchoCommand(TextReader i, TextWriter o, ShellEnvironment e)
         : base(i, o, e) { }
 
-    protected override int Go(string[] args)
+    public override int Go(string[] args)
     {
         StdOut.WriteLine(string.Join(" ", args));
         return 0;
