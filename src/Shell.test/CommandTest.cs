@@ -30,7 +30,7 @@ public class CommandTest
 
     private string extractOutput(Command command,
                 string[] args, MemoryStream stream) {
-        command.Go(args);  
+        command.Run(args).Wait();  
         command.StdOut.Flush();
         stream.Position = 0;
         return (new StreamReader(stream)).ReadToEnd();

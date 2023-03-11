@@ -7,7 +7,7 @@ public class CatCommand : Command
     public CatCommand(TextReader i, TextWriter o, ShellEnvironment e)
         : base(i, o, e) { }
 
-    public override int Go(string[] args)
+    protected override int Go(string[] args)
     {
         string? s = this.StdIn.ReadLine();
         int returnCode = 0;
