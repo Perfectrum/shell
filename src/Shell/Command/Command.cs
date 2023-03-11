@@ -19,7 +19,7 @@ public abstract class Command
         Env = env;
     }
 
-    protected abstract int Go(string[] args);
+    public abstract int Go(string[] args);
 
     public virtual Task<int> Run(string[] args)
     {

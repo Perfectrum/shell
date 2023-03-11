@@ -14,7 +14,7 @@ public class ForeignCommand : Command
         _commandName = name;
     }
 
-    protected override int Go(string[] a)
+    public override int Go(string[] a)
     {
         return 0;
     }
