@@ -78,7 +78,7 @@ public class TemplateToken : Token
     public string Resolve(List<string> vars)
     {
         vars.Add("");
-        return Enumerable.Zip(Pattern, vars).Aggregate("", (a, x) => a + x.First + x.Second);
+        return Enumerable.Zip(Pattern, vars.Select(var => "'" + var + "'").ToList() ).Aggregate("", (a, x) => a + x.First + x.Second);
     }
 
     public override Result<Expression> Render()

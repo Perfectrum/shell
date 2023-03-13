@@ -139,13 +139,13 @@ public class ParseAutomaton
                     {
                         if (s == '"' && !escaped)
                         {
-                            Reduce(new WordToken(buffer) { Original = $"'{buffer}'" });
+                            Reduce(new WordToken(buffer) { Original = $"{buffer}" });
                             buffer = "";
                             state = ParseState.SPACE;
                         }
                         else if (s == '$' && !escaped)
                         {
-                            Reduce(new WordToken(buffer) { Original = $"'{buffer}" });
+                            Reduce(new WordToken(buffer) { Original = $"{buffer}" });
                             buffer = "";
                             prev = ParseState.WEAK_Q;
                             state = ParseState.VARIABLE;
