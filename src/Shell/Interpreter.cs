@@ -44,6 +44,7 @@ public class Interpreter
                 {
                     try
                     {
+                        x.Wait();
                         var code = x.Result;
                         _env["?"] = code.ToString();
                         return ResultFactory.CreateResult<bool>(true);
