@@ -28,7 +28,7 @@ public class Interpreter
         CommandResolver.RegisterInternal("exit", () => new ExitCommand());
         CommandResolver.RegisterInternal("pwd", () => new PwdCommand());
     }
-    
+
     /// <summary>
     /// Обработка пользовательского ввода.
     /// </summary>

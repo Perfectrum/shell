@@ -2,7 +2,7 @@ namespace Shell.Command.Integrated;
 
 using Shell.Enviroment;
 
-class EchoCommand : Command
+public class EchoCommand : Command
 {
     public EchoCommand(TextReader i, TextWriter o, ShellEnvironment e)
         : base(i, o, e) { }

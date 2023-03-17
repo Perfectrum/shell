@@ -2,13 +2,14 @@ namespace Shell.Command.Integrated;
 
 using Shell.Enviroment;
 
-class WcCommand : Command
+public class WcCommand : Command
 {
     public WcCommand(TextReader i, TextWriter o, ShellEnvironment e)
         : base(i, o, e) { }
 
     protected override int Go(string[] args)
     {
+        int returnCode = 0;
         foreach (var arg in args)
         {
             try
@@ -26,7 +27,6 @@ class WcCommand : Command
                         wordsCount += line == "" ? 0 : line.Split().Length;
                     }
                 }
-
                 StdOut.WriteLine(linesCount.ToString() + " " +
                                  wordsCount.ToString() + " " +
                                  bytesCount.ToString() + " " + arg);
@@ -34,9 +34,10 @@ class WcCommand : Command
             catch (FileNotFoundException)
             {
                 StdOut.WriteLine("wc: " + arg + " No such file or directory");
-                return -1;
+
+                returnCode = -1;
             }
         }
-        return 0;
+        return returnCode;
     }
 }
