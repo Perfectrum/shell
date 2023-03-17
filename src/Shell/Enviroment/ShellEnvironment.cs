@@ -1,6 +1,5 @@
 namespace Shell.Enviroment;
 
-using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -22,10 +21,6 @@ public class ShellEnvironment : IEnumerable<KeyValuePair<string, string>>
                 _data[(string)i.Key] = (string)i.Value;
             }
         }
-
-#if DEBUG
-        Console.WriteLine($"Loaded {_data.Count} variables!");
-#endif
     }
 
     private ShellEnvironment(ShellEnvironment parent)
