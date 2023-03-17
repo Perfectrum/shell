@@ -39,5 +39,5 @@ public class WcCommand : Command
             }
         }
         return returnCode;
-        }
+    }
 }

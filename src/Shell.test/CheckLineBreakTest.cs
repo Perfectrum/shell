@@ -44,7 +44,7 @@ public class CheckLineBreakTest
     [Fact]
     public void QoutesMix()
     {
-        Assert.Equal(expected: UI.State.Normal,actual: ui.CheckLineBreak("\"'\""));
+        Assert.Equal(expected: UI.State.Normal, actual: ui.CheckLineBreak("\"'\""));
         Assert.Equal(expected: UI.State.Normal, actual: ui.CheckLineBreak("'\"'"));
         Assert.Equal(expected: UI.State.SingleQuote, actual: ui.CheckLineBreak("'\""));
         Assert.Equal(expected: UI.State.DoubleQuote, actual: ui.CheckLineBreak("\"'"));

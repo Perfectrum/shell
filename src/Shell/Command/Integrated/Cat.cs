@@ -31,5 +31,5 @@ public class CatCommand : Command
             }
         }
         return returnCode;
-        }
+    }
 }
