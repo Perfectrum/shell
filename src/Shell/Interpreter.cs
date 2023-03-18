@@ -25,8 +25,8 @@ public class Interpreter
         CommandResolver.RegisterBuiltIn("wc", (r, w, e) => new WcCommand(r, w, e));
         CommandResolver.RegisterBuiltIn("cat", (r, w, e) => new CatCommand(r, w, e));
 
-        CommandResolver.RegisterInternal("exit", () => new ExitCommand());
-        CommandResolver.RegisterInternal("pwd", () => new PwdCommand());
+        CommandResolver.RegisterBuiltIn("exit", (r, w, e) => new ExitCommand(r, w, e));
+        CommandResolver.RegisterBuiltIn("pwd", (r, w, e) => new PwdCommand(r, w, e));
     }
 
     /// <summary>
@@ -44,9 +44,17 @@ public class Interpreter
                 {
                     try
                     {
-                        x.Wait();
-                        var code = x.Result;
+                        x.Process.Wait();
+                        var code = x.Process.Result;
                         _env["?"] = code.ToString();
+                        if (x.Effect != null)
+                        {
+                            return x.Effect.Map(x =>
+                            {
+                                Console.WriteLine(x);
+                                return false;
+                            });
+                        }
                         return ResultFactory.CreateResult<bool>(true);
                     }
                     catch (Exception ex)

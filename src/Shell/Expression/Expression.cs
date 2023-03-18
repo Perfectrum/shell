@@ -14,5 +14,5 @@ public abstract class Expression
 {
     public ExpTypes Type { get; set; }
 
-    abstract public Result<Task<int>> Run(ShellEnvironment env);
+    abstract public Result<Box> Run(ShellEnvironment env);
 }

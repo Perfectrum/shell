@@ -2,10 +2,14 @@ using Shell.Enviroment;
 
 namespace Shell.Command.Hidden;
 
-public class CdCommand : InternalCommand
+public class CdCommand : Command
 {
-    public override Result<string> Process(string[] args, ShellEnvironment env)
+    public CdCommand(TextReader i, TextWriter o, ShellEnvironment e)
+        : base(i, o, e) { }
+    protected override int Go(string[] args)
     {
-        return ResultFactory.CreateError<string>("Not implemented");
+        base.ByCallThisFunctionIConfirmThatThisFunctionChangeBashStateAndThisIsUnsafeActualy();
+        ShellSideEffect = ResultFactory.CreateError<string>("Not implemented");
+        return 0;
     }
 }

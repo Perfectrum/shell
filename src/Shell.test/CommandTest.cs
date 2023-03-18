@@ -32,7 +32,7 @@ public class CommandTest
                 string[] args, MemoryStream stream)
     {
         command.Run(args).Wait();
-        command.StdOut.Flush();
+        command.StdOut.Original?.Flush();
         stream.Position = 0;
         return (new StreamReader(stream)).ReadToEnd();
     }

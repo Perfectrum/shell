@@ -2,10 +2,14 @@ using Shell.Enviroment;
 
 namespace Shell.Command.Hidden;
 
-public class PwdCommand : InternalCommand
+public class PwdCommand : Command
 {
-    public override Result<string> Process(string[] args, ShellEnvironment env)
+    public PwdCommand(TextReader i, TextWriter o, ShellEnvironment e)
+        : base(i, o, e) { }
+    protected override int Go(string[] args)
     {
-        return ResultFactory.CreateResult<string>(env["PWD"]);
+        base.ByCallThisFunctionIConfirmThatThisFunctionChangeBashStateAndThisIsUnsafeActualy();
+        ShellSideEffect = ResultFactory.CreateResult<string>(Env["PWD"]);
+        return 0;
     }
 }

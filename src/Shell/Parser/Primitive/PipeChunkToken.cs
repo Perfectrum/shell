@@ -5,22 +5,30 @@ using Shell;
 using System.Collections.Generic;
 
 /// <summary>
-///     AssingmentChunkToken = WordToken EqToken 
+///     AssingmentChunkToken = WordToken PalkaToken 
 ///     <br>
 ///     Например a=
 /// </summary>
-public class AssingmentChunkToken : Token
+public class PipeChunkToken : Token
 {
     /// <summary>
     ///     Значение переменной для присваивания
     /// </summary>
-    public string Value { get; }
+    public CommandToken? Value { get; } = null;
+    public PipeToken? Pipe { get; } = null;
 
-    public AssingmentChunkToken(string value)
+    public PipeChunkToken(CommandToken value)
     {
-        Original = $"{value}=";
+        Original = $"{value.Original}|";
         Value = value;
-        Type = TokenType.T_ASS_PRED;
+        Type = TokenType.T_PIPE_PRED;
+    }
+
+    public PipeChunkToken(PipeToken value)
+    {
+        Original = $"{value.Original}|";
+        Pipe = value;
+        Type = TokenType.T_PIPE_PRED;
     }
 
     public override Token? Join(Stack<Token> x)
@@ -47,7 +55,7 @@ public class AssingmentChunkToken : Token
 #if DEBUG
     public override string ToDebugString()
     {
-        return $"[ASS_CHUNK: {Value}=]";
+        return $"[PIPE_CHUNK: {Value?.ToDebugString() ?? Pipe?.ToDebugString()}|]";
     }
 #endif
 }

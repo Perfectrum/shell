@@ -19,12 +19,12 @@ public class AssignmentExpression : Expression
         Type = ExpTypes.Assignment;
     }
 
-    public override Result<Task<int>> Run(ShellEnvironment env)
+    public override Result<Box> Run(ShellEnvironment env)
     {
         foreach (var p in _assignments)
         {
             env[p.Name] = p.Value;
         }
-        return ResultFactory.CreateEmpty<Task<int>>();
+        return ResultFactory.CreateEmpty<Box>();
     }
 }

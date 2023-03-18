@@ -78,6 +78,21 @@ public class CommandToken : Token
             return t;
         }
 
+        if (x.Peek().Type == TokenType.T_PIPE_PRED)
+        {
+            var t = (PipeChunkToken)x.Pop();
+            return new PipeToken(t, this);
+        }
+
+        if (x.Peek().Type == TokenType.T_PIPE)
+        {
+            var t = (PipeToken)x.Pop();
+            t.Commands.Last().Arguments.Add(Name);
+            t.Commands.Last().Arguments.AddRange(Arguments);
+            t.Original += Original;
+            return t;
+        }
+
         if (x.Peek().Type == TokenType.T_TMP)
         {
             var t = (TemplateToken)x.Pop();

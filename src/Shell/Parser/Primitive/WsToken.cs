@@ -60,6 +60,27 @@ public class WsToken : Token
             return t;
         }
 
+        if (x.Peek().Type == TokenType.T_PLK)
+        {
+            var t = x.Pop();
+            t.Original += Original;
+            return t;
+        }
+
+        if (x.Peek().Type == TokenType.T_PIPE_PRED)
+        {
+            var t = x.Pop();
+            t.Original += Original;
+            return t;
+        }
+
+        if (x.Peek().Type == TokenType.T_PIPE)
+        {
+            var t = x.Pop();
+            t.Original += Original;
+            return t;
+        }
+
         if (x.Peek().Type == TokenType.T_TMP)
         {
             var t = (TemplateToken)x.Pop();

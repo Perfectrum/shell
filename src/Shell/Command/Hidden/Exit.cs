@@ -2,10 +2,14 @@ using Shell.Enviroment;
 
 namespace Shell.Command.Hidden;
 
-public class ExitCommand : InternalCommand
+public class ExitCommand : Command
 {
-    public override Result<string> Process(string[] args, ShellEnvironment env)
+    public ExitCommand(TextReader i, TextWriter o, ShellEnvironment e)
+        : base(i, o, e) { }
+    protected override int Go(string[] args)
     {
-        return ResultFactory.CreateTerminate<string>("Exit command called!");
+        this.ByCallThisFunctionIConfirmThatThisFunctionChangeBashStateAndThisIsUnsafeActualy();
+        ShellSideEffect = ResultFactory.CreateTerminate<string>("Exit command called!");
+        return 0;
     }
 }

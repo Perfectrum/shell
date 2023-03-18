@@ -69,6 +69,10 @@ public class ParseAutomaton
                             {
                                 Reduce(new EqToken());
                             }
+                            else if (s == '|')
+                            {
+                                Reduce(new PalkaToken());
+                            }
                             else
                             {
                                 buffer += s;

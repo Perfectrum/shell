@@ -68,7 +68,7 @@ public class AssingmentToken : Token
             var cmd = new CommandToken(
                 string.Join(" ", Values.Select(x => x.Name + '=' + x.Value).ToArray())
             );
-            cmd.Original = Original;
+            cmd.Original += Original;
             return cmd;
         }
 

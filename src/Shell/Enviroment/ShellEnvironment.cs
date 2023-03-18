@@ -39,6 +39,15 @@ public class ShellEnvironment : IEnumerable<KeyValuePair<string, string>>
         return GetEnumerator();
     }
 
+    public ShellEnvironment GetUnsafeShellEnv()
+    {
+        if (_parent == null)
+        {
+            return this;
+        }
+        return _parent.GetUnsafeShellEnv();
+    }
+
     public IEnumerator<KeyValuePair<string, string>> GetEnumerator()
     {
         foreach (var item in _data)

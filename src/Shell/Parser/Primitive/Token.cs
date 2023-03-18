@@ -16,7 +16,10 @@ public enum TokenType
     T_EQ,
     T_TMP,
     T_COR,
-    T_ERR
+    T_ERR,
+    T_PLK,
+    T_PIPE_PRED,
+    T_PIPE
 }
 
 /// <summary>

@@ -72,4 +72,43 @@ public static class ResultFactory
     {
         return new Result<U>(Status.Empty, "", default(U));
     }
+
+    public static Result<List<T>> Traverse<T>(List<Result<T>> list)
+    {
+        List<T> res = new List<T>();
+        foreach (var r in list)
+        {
+            if (r.State != Status.Ok)
+            {
+                return new Result<List<T>>(r.State, r.Message, default(List<T>));
+            }
+            res.Add(r.Value!);
+        }
+
+        return ResultFactory.CreateResult<List<T>>(res);
+    }
+
+    public static Result<T>? Join<T>(List<Result<T>?> list)
+    {
+        List<Result<T>> pure = new List<Result<T>>();
+        foreach (var e in list)
+        {
+            if (e != null)
+            {
+                pure.Add(e);
+            }
+        }
+        if (pure.Count == 0)
+        {
+            return null;
+        }
+
+        var x = pure.First();
+        for (int i = 1; i < pure.Count; ++i)
+        {
+            x = x.Then(a => pure[i]);
+        }
+
+        return x;
+    }
 }
