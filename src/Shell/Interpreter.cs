@@ -27,6 +27,8 @@ public class Interpreter
 
         CommandResolver.RegisterBuiltIn("exit", (r, w, e) => new ExitCommand(r, w, e));
         CommandResolver.RegisterBuiltIn("pwd", (r, w, e) => new PwdCommand(r, w, e));
+        
+        CommandResolver.RegisterBuiltIn("grep", (r, w, e) => new GrepCommand(r, w, e));
     }
 
     /// <summary>
