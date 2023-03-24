@@ -1,5 +1,6 @@
 using Shell.Enviroment;
 using System.CommandLine;
+using System.Text.RegularExpressions;
 using CliCommand = System.CommandLine.Command;
 
 namespace Shell.Command.Integrated;
@@ -26,14 +27,45 @@ public class GrepCommand : Command
             numOption
         };
 
-        rootCommand.SetHandler((
+        rootCommand.SetHandler( (
             wordOptionValue,
             caseOptionValue,
             numOptionValue,
             patternArgumentValue,
             inputArgumentValue) => {
-                Console.WriteLine($"pattern: {patternArgumentValue}; input: {inputArgumentValue}; -w = {wordOptionValue}; -i = {caseOptionValue}; A = {numOptionValue}");
-            }, wordOption, caseOption, numOption, patternArgument, inputArgument);
+                if ( !File.Exists(inputArgumentValue) )
+                {
+                    Console.WriteLine($"File {inputArgumentValue} not found.");
+                    return;
+                }
+
+                var ignoreCase = caseOptionValue ? RegexOptions.IgnoreCase : RegexOptions.None;
+                var count = 0;
+                
+                if (wordOptionValue)  {  patternArgumentValue = ' ' + patternArgumentValue + ' ';  }
+                    
+                patternArgumentValue = ".*" + patternArgumentValue + ".*";
+                
+#if DEBUG
+                Console.WriteLine($"GREP DEBUG: regex = {patternArgumentValue}; -w = {wordOptionValue}; -i = {caseOptionValue}; -A = {numOptionValue}");
+#endif
+
+                foreach (var line in File.ReadLines(inputArgumentValue))
+                {
+                    if (count > 0)
+                    {
+                        Console.WriteLine(line);
+                        count--;
+                        continue;
+                    }
+                    
+                    if (Regex.Matches(line, @patternArgumentValue, ignoreCase).Count > 0)
+                    {
+                        count = numOptionValue;
+                        Console.WriteLine(line);
+                    }
+                }
+        }, wordOption, caseOption, numOption, patternArgument, inputArgument);
 
         return rootCommand.InvokeAsync(args).Result;
     }
