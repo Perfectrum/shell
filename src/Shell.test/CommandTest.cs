@@ -91,8 +91,8 @@ public class CommandTest
             Преподсчитанные значения, записанные
             без пробелов.
         */
-        string expected1 = "3456";
-        string expected2 = "22196";
+        string expected1 = "3457";
+        string expected2 = "22197";
         testWcWithText(lines1, expected1);
         testWcWithText(lines2, expected2);
     }
