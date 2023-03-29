@@ -123,7 +123,76 @@ public class CommandTest
             .Where(c => !Char.IsWhiteSpace(c))
             .ToArray());
     }
+    
+    [Fact]
+    public void LsTest()
+    {
+        // TODO: создать директорию, наполнить её файлами
+        string[] files = {"Poopy", "di", "scoop", "Scoop", "diddy-whoop", "Whoop-di-scoop-di-poop"};
+        string dir = "test_dir";
 
+        createTestDir(dir, files);
+        
+        // TODO: проверить что в директории с файлами есть эти файлы
+        string[] args = { dir };
+        testLsWithFiles(args, files);
+        
+        // TODO: проверить что вызов на произвольном файле из созданных не падает и выдаёт само имя файла
+        string[] pathToExistingFile = { dir +  files[2] /* склеить директорию с именем файла через системный разделитель */};
+        string[] existingFile = { files[2] };
+        testLsWithFiles(pathToExistingFile, existingFile);
+        
+        // TODO: проверить что вызов на произвольном файле из не созданных падает и выдаёт ошибку
+        string[] pathToNotExistingFile = { dir +  "not_existing_file" /* склеить директорию с именем файла через системный разделитель */};
+        string[] notExistingFile = { "not_existing_file" };
+        
+        testLsWithFiles(pathToNotExistingFile, notExistingFile);
+        
+        // TODO: поменять рабочую директорию, зайти в созданную директорию и проверить работоспособность ls без аргументов и аргументом .
+        string[] arr = new string[] {};
+        testLsWithFiles(arr, files, dir);
+        
+        string[] dot = {"."};
+        testLsWithFiles(dot, files, dir);
+        
+        // TODO: вернуться назад и удалить созданную директорию
+        removeTestDir(dir);
+    }
+
+    private void createTestDir(string dir, string[] files)
+    {
+        DirectoryInfo createdDir = Directory.CreateDirectory(dir);
+        foreach (string file in files)
+        {
+            var filePath = Path.Join(createdDir.FullName, file);
+            File.Create(filePath);
+        }
+    }
+
+    private void testLsWithFiles(string[] args , string[] files, string startDir = "")
+    {
+        // somehow change current working directory
+        var currentDirectory = Directory.GetCurrentDirectory();
+        var joined = Path.Join(currentDirectory, startDir);
+        Directory.SetCurrentDirectory(joined);
+        
+        // creating and running the command
+        var stream = new MemoryStream();
+        var streamWriter = new StreamWriter(stream);
+        var ls = new LsCommand(new StreamReader(new MemoryStream()),
+            streamWriter, new ShellEnvironment());
+        
+        Assert.StartsWith(expected, RemoveSpaces(
+            extractOutput(ls, new string[] { path }, stream)));
+        
+        var returnPath = Path.Join(currentDirectory, "..\\");
+        Directory.SetCurrentDirectory(returnPath);
+    }
+
+    private void removeTestDir(string dir)
+    {
+        Directory.Delete(dir);
+    }
 }
 
 #endif
