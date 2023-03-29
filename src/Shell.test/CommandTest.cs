@@ -129,34 +129,36 @@ public class CommandTest
     {
         // TODO: создать директорию, наполнить её файлами
         string[] files = {"Poopy", "di", "scoop", "Scoop", "diddy-whoop", "Whoop-di-scoop-di-poop"};
+        Array.Sort(files);
         string dir = "test_dir";
 
         createTestDir(dir, files);
-        
+        string absolutePath = Directory.GetCurrentDirectory();
+
         // TODO: проверить что в директории с файлами есть эти файлы
         string[] args = { dir };
-        testLsWithFiles(args, files);
+        testLsWithFiles(args, files, absolutePath);
         
         // TODO: проверить что вызов на произвольном файле из созданных не падает и выдаёт само имя файла
         string[] pathToExistingFile = { dir +  files[2] /* склеить директорию с именем файла через системный разделитель */};
         string[] existingFile = { files[2] };
-        testLsWithFiles(pathToExistingFile, existingFile);
+        testLsWithFiles(pathToExistingFile, existingFile, absolutePath);
         
         // TODO: проверить что вызов на произвольном файле из не созданных падает и выдаёт ошибку
         string[] pathToNotExistingFile = { dir +  "not_existing_file" /* склеить директорию с именем файла через системный разделитель */};
         string[] notExistingFile = { "not_existing_file" };
         
-        testLsWithFiles(pathToNotExistingFile, notExistingFile);
+        testLsWithFiles(pathToNotExistingFile, notExistingFile, absolutePath);
         
         // TODO: поменять рабочую директорию, зайти в созданную директорию и проверить работоспособность ls без аргументов и аргументом .
         string[] arr = new string[] {};
-        testLsWithFiles(arr, files, dir);
+        testLsWithFiles(arr, files, Path.Join(absolutePath, dir));
         
         string[] dot = {"."};
-        testLsWithFiles(dot, files, dir);
+        testLsWithFiles(dot, files, Path.Join(absolutePath, dir));
         
         // TODO: вернуться назад и удалить созданную директорию
-        removeTestDir(dir);
+        removeTestDir(Path.Join(absolutePath, dir));
     }
 
     private void createTestDir(string dir, string[] files)
@@ -172,22 +174,20 @@ public class CommandTest
     private void testLsWithFiles(string[] args , string[] files, string startDir = "")
     {
         // somehow change current working directory
-        var currentDirectory = Directory.GetCurrentDirectory();
-        var joined = Path.Join(currentDirectory, startDir);
-        Directory.SetCurrentDirectory(joined);
+        ShellEnvironment shellEnvironment = new ShellEnvironment();
+        shellEnvironment["PWD"] = startDir;
+        Directory.SetCurrentDirectory(startDir);
         
         // creating and running the command
         var stream = new MemoryStream();
         var streamWriter = new StreamWriter(stream);
-        var ls = new LsCommand(new StreamReader(new MemoryStream()),
-            streamWriter, new ShellEnvironment());
-
-        string expectedStartString = String.Join("\n", files);
-        Assert.StartsWith(expectedStartString, RemoveSpaces(
-            extractOutput(ls, args, stream)));
         
-        var returnPath = Path.Join(currentDirectory, "..\\");
-        Directory.SetCurrentDirectory(returnPath);
+        var ls = new LsCommand(new StreamReader(new MemoryStream()),
+            streamWriter, shellEnvironment);
+
+        string expectedString = String.Join(" ", files);
+        Assert.Equal(expectedString, RemoveSpaces(
+            extractOutput(ls, args, stream)));
     }
 
     private void removeTestDir(string dir)
