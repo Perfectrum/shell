@@ -30,6 +30,7 @@ public class LsCommand : Command
             try
             {
                 List<string> entries = Directory.GetFileSystemEntries(path).ToList();
+                entries.Sort();
                 StdOut.WriteLine(String.Join(" ", entries.ConvertAll(Path.GetFileName)));
                 return 0;
             }
