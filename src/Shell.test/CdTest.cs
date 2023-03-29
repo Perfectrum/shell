@@ -60,5 +60,21 @@ public class CdTest
         cd.Run(args).Wait();
         Assert.Equal(pathExpected, cd.Env["PWD"]);
     }
+    
+    [Fact]
+    public void DownDirectory()
+    {
+        var stream = new MemoryStream();
+        var streamWriter = new StreamWriter(stream);
+        var cd = new CdCommand(new StreamReader(new MemoryStream()),
+            streamWriter, new ShellEnvironment());
+        var dir_name = "test_dir";
+        var pathExpected = Path.Combine(cd.Env["PWD"], dir_name).TrimEnd('/');
+        Directory.CreateDirectory(pathExpected);
+        var args = new string[]{dir_name};
+        cd.Run(args).Wait();
+        Assert.Equal(pathExpected, cd.Env["PWD"]);
+        Directory.Delete(pathExpected);
+    }
 }
 #endif
