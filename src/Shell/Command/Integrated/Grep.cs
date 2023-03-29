@@ -1,7 +1,6 @@
 using Shell.Enviroment;
 using System.CommandLine;
 using System.Text.RegularExpressions;
-using CliCommand = System.CommandLine.Command;
 
 namespace Shell.Command.Integrated;
 
@@ -49,12 +48,12 @@ public class GrepCommand : Command
 #if DEBUG
                 Console.WriteLine($"GREP DEBUG: regex = {patternArgumentValue}; -w = {wordOptionValue}; -i = {caseOptionValue}; -A = {numOptionValue}");
 #endif
-
+                //FIXME: StdIn.ReadLine()
                 foreach (var line in File.ReadLines(inputArgumentValue))
                 {
                     if (count > 0)
                     {
-                        Console.WriteLine(line);
+                        StdOut.WriteLine(line);
                         count--;
                         continue;
                     }
@@ -62,11 +61,11 @@ public class GrepCommand : Command
                     if (Regex.Matches(line, @patternArgumentValue, ignoreCase).Count > 0)
                     {
                         count = numOptionValue;
-                        Console.WriteLine(line);
+                        StdOut.WriteLine(line);
                     }
                 }
         }, wordOption, caseOption, numOption, patternArgument, inputArgument);
 
-        return rootCommand.InvokeAsync(args).Result;
+        return rootCommand.Invoke(args);
     }
 }
