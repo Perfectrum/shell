@@ -181,9 +181,10 @@ public class CommandTest
         var streamWriter = new StreamWriter(stream);
         var ls = new LsCommand(new StreamReader(new MemoryStream()),
             streamWriter, new ShellEnvironment());
-        
-        Assert.StartsWith(expected, RemoveSpaces(
-            extractOutput(ls, new string[] { path }, stream)));
+
+        string expectedStartString = String.Join("\n", files);
+        Assert.StartsWith(expectedStartString, RemoveSpaces(
+            extractOutput(ls, args, stream)));
         
         var returnPath = Path.Join(currentDirectory, "..\\");
         Directory.SetCurrentDirectory(returnPath);
