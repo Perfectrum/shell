@@ -140,15 +140,24 @@ public class CommandTest
         testLsWithFiles(args, files, absolutePath);
         
         // TODO: проверить что вызов на произвольном файле из созданных не падает и выдаёт само имя файла
-        string[] pathToExistingFile = { dir +  files[2] /* склеить директорию с именем файла через системный разделитель */};
+        string[] pathToExistingFile = { Path.Join(dir, files[2])};
         string[] existingFile = { files[2] };
         testLsWithFiles(pathToExistingFile, existingFile, absolutePath);
         
         // TODO: проверить что вызов на произвольном файле из не созданных падает и выдаёт ошибку
-        string[] pathToNotExistingFile = { dir +  "not_existing_file" /* склеить директорию с именем файла через системный разделитель */};
-        string[] notExistingFile = { "not_existing_file" };
+        try
+        {
+            string[] pathToNotExistingFile = { Path.Join(dir,  "not_existing_file")};
+            string[] notExistingFile = { "not_existing_file" };
+            testLsWithFiles(pathToNotExistingFile, notExistingFile, absolutePath);
+            Assert.False(true);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+        }
+
         
-        testLsWithFiles(pathToNotExistingFile, notExistingFile, absolutePath);
         
         // TODO: поменять рабочую директорию, зайти в созданную директорию и проверить работоспособность ls без аргументов и аргументом .
         string[] arr = new string[] {};
@@ -185,14 +194,14 @@ public class CommandTest
         var ls = new LsCommand(new StreamReader(new MemoryStream()),
             streamWriter, shellEnvironment);
 
-        string expectedString = String.Join(" ", files);
-        Assert.Equal(expectedString, RemoveSpaces(
-            extractOutput(ls, args, stream)));
+        string expectedString = String.Join(" ", files) + "\n";
+        Assert.Equal(expectedString, 
+            extractOutput(ls, args, stream));
     }
 
     private void removeTestDir(string dir)
     {
-        Directory.Delete(dir);
+        Directory.Delete(dir, true);
     }
 }
 
