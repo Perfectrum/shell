@@ -10,7 +10,7 @@ public class CdCommand : Command
     {
         base.ByCallThisFunctionIConfirmThatThisFunctionChangeBashStateAndThisIsUnsafeActualy();
         var arg = args.Length == 0 ? "." : args[0];
-        var path = arg[0] != '/' ? Path.GetFullPath(Path.Combine(Env["PWD"] + "/", arg)) : arg;
+        var path = arg[0] != '/' ? Path.GetFullPath(Path.Combine(Env["PWD"] + "/", arg)).TrimEnd('/') : arg;
         var returnCode = 0;
         if (Directory.Exists(path)) 
         {
