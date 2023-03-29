@@ -29,6 +29,10 @@ public class Interpreter
         CommandResolver.RegisterBuiltIn("pwd", (r, w, e) => new PwdCommand(r, w, e));
         
         CommandResolver.RegisterBuiltIn("grep", (r, w, e) => new GrepCommand(r, w, e));
+        
+        CommandResolver.RegisterBuiltIn("ls", (r, w, e) => new LsCommand(r, w, e));
+        CommandResolver.RegisterBuiltIn("cd", (r, w, e) => new CdCommand(r, w, e));
+
     }
 
     /// <summary>
