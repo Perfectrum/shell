@@ -6,6 +6,11 @@ public class CdCommand : Command
 {
     public CdCommand(TextReader i, TextWriter o, ShellEnvironment e)
         : base(i, o, e) { }
+    /// <summary>
+    /// Change working directory.
+    /// </summary>
+    /// <param name="args">argument list.</param>
+    /// <returns>return code.</returns>
     protected override int Go(string[] args)
     {
         base.ByCallThisFunctionIConfirmThatThisFunctionChangeBashStateAndThisIsUnsafeActualy();
