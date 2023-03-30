@@ -9,8 +9,8 @@ public class CdCommand : Command
     /// <summary>
     /// Change working directory.
     /// </summary>
-    /// <param name="args">argument list.</param>
-    /// <returns>return code.</returns>
+    /// <param name="args">Argument list.</param>
+    /// <returns>Return code.</returns>
     protected override int Go(string[] args)
     {
         base.ByCallThisFunctionIConfirmThatThisFunctionChangeBashStateAndThisIsUnsafeActualy();
