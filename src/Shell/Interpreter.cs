@@ -10,8 +10,9 @@ using Shell.Command.Hidden;
 /// Класс интерпретатора.
 /// </summary>
 /// <description>
-/// Инициализирует окружение и парсер. Принимает пользовательский ввод, передает его интерпретатору и возвращает объект
-/// результата (Result) с соответствующим результатом.
+/// Инициализирует окружение и парсер. Принимает пользовательский ввод, передает его в парсер
+//  и извлекает их него объект результата (Result), с которым совершает некоторое предписанное
+//  действие
 /// </description>
 
 public class Interpreter
@@ -27,6 +28,8 @@ public class Interpreter
 
         CommandResolver.RegisterBuiltIn("exit", (r, w, e) => new ExitCommand(r, w, e));
         CommandResolver.RegisterBuiltIn("pwd", (r, w, e) => new PwdCommand(r, w, e));
+        
+        CommandResolver.RegisterBuiltIn("grep", (r, w, e) => new GrepCommand(r, w, e));
     }
 
     /// <summary>

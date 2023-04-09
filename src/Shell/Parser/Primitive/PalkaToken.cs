@@ -62,7 +62,7 @@ public class PalkaToken : Token
 
     public override Result<Expression> Render()
     {
-        return ResultFactory.CreateError<Expression>("Sytax error!");
+        return ResultFactory.CreateError<Expression>("Syntax error!");
     }
 
 #if DEBUG
