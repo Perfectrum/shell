@@ -2,8 +2,17 @@ namespace Shell.Command.Integrated;
 
 using Shell.Enviroment;
 
+/// <summary>
+///     Класс cat команды,
+///     команда отвечает за соединение строк и вывода их.
+/// </summary>
 public class CatCommand : Command
 {
+    /// <summary>
+    ///     Создаёт объект класса pwd команды.
+    ///     команда отвечает за соединение строк или содержимого файлов
+    ///     и последующего вывода их конкатенации.
+    /// </summary>
     public CatCommand(TextReader i, TextWriter o, ShellEnvironment e)
         : base(i, o, e) { }
 

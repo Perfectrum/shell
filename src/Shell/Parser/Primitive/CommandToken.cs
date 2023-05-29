@@ -6,25 +6,33 @@ using System.Collections.Generic;
 /// <summary>
 ///     CommandToken = AssingmentToken CommandToken
 ///                      | CommandToken CommandToken
-///                      | WordToken WsToken  
+///                      | WordToken WsToken  .
 ///     <br>
-///     Например echo или echo a b или a=3 echo a b
+///     Например echo или echo a b или a=3 echo a b.
 /// </summary>
 public class CommandToken : Token
 {
     /// <summary>
-    ///     Имя команды
+    ///     Имя команды.
     /// </summary>
     public string Name { get; }
     /// <summary>
-    ///     Присваивания переменных для этой команды
+    ///     Присваивания переменных для этой команды.
     /// </summary>
     public AssingmentToken? Assignments { get; private set; }
     /// <summary>
-    ///     Аргументы команды
+    ///     Аргументы команды.
     /// </summary>
     public List<string> Arguments { get; }
 
+    /// <summary>
+    ///     CommandToken = AssingmentToken CommandToken
+    ///                      | CommandToken CommandToken
+    ///                      | WordToken WsToken.
+    ///     Создаёт объект класса CommandToken.
+    ///     <br>
+    ///     Например echo или echo a b или a=3 echo a b.
+    /// </summary>
     public CommandToken(string value)
     {
         Original = value;

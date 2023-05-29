@@ -8,8 +8,19 @@ public enum Status
     Exit
 };
 
+/// <summary>
+/// Обёртка над результатами отработки классов, 
+/// реализует [монаду](https://ru.wikipedia.org/wiki/Монада_(программирование)).
+/// Помимо результатов передаёт состояния и ошибки.
+/// </summary>
 public class Result<T>
 {
+    /// <summary>
+    /// Обёртка над результатами отработки классов, 
+    /// реализует [монаду](https://ru.wikipedia.org/wiki/Монада_(программирование)).
+    /// Помимо результатов передаёт состояния и ошибки.
+    /// Создаёт объект класса результата.
+    /// </summary>
     public Result(Status state, string message, T? value)
     {
         State = state;
@@ -30,6 +41,10 @@ public class Result<T>
 
     public delegate Result<U> MonadHandler<U>(T x);
 
+    /// <summary>
+    /// bind монады результата.
+    /// https://en.wikipedia.org/wiki/Monad_(functional_programming)
+    /// </summary>
     public Result<U> Then<U>(MonadHandler<U> f)
     {
         if (State == Status.Ok && Value != null)
@@ -41,6 +56,10 @@ public class Result<T>
 
     public delegate U FunctorHandler<U>(T x);
 
+    /// <summary>
+    /// map монады результата
+    /// https://en.wikipedia.org/wiki/Monad_(functional_programming)
+    /// </summary>
     public Result<U> Map<U>(FunctorHandler<U> f)
     {
         if (State == Status.Ok && Value != null)
@@ -51,28 +70,50 @@ public class Result<T>
     }
 }
 
+/// <summary>
+/// Класс ResultFactory инкапсулирует создание объектов-результатов.
+/// </summary>
 public static class ResultFactory
 {
+    /// <summary>
+    /// Создать обертку результат над переданным значением.
+    /// </summary>
     public static Result<U> CreateResult<U>(U v)
     {
         return new Result<U>(Status.Ok, "", v);
     }
 
+    /// <summary>
+    /// Создать обертку результат над переданным значением
+    /// - строкой ошибки.
+    /// </summary>
     public static Result<U> CreateError<U>(string msg)
     {
         return new Result<U>(Status.Error, msg, default(U));
     }
 
+    /// <summary>
+    /// Создать обертку результат c информацией
+    /// о выходе из программы, и переданной строкой. 
+    /// </summary>
     public static Result<U> CreateTerminate<U>(string msg)
     {
         return new Result<U>(Status.Exit, msg, default(U));
     }
 
+    /// <summary>
+    /// Создать обертку результат c дефолтным значением типа
+    /// и пустым сообщением.
+    /// </summary>
     public static Result<U> CreateEmpty<U>()
     {
         return new Result<U>(Status.Empty, "", default(U));
     }
 
+    /// <summary>
+    /// Traverse для списка результатов.
+    /// https://runebook.dev/ru/docs/haskell/libraries/base-4.15.0.0/data-traversable
+    /// </summary>
     public static Result<List<T>> Traverse<T>(List<Result<T>> list)
     {
         List<T> res = new List<T>();
@@ -88,6 +129,9 @@ public static class ResultFactory
         return ResultFactory.CreateResult<List<T>>(res);
     }
 
+    /// <summary>
+    /// Соединить все результаты bindом монады. 
+    /// </summary>
     public static Result<T>? Join<T>(List<Result<T>?> list)
     {
         List<Result<T>> pure = new List<Result<T>>();

@@ -4,18 +4,27 @@ using System.Collections.Generic;
 using Shell.Expression;
 
 /// <summary>
-///     WordToken = WHITESPACE
-///     <br>
-///     Например: ' ' или '\n'
+///     WordToken = WHITESPACE.
+///     Например: ' ' или '\n'.
 /// </summary>
 public class WsToken : Token
 {
+    /// <summary>
+    ///     WordToken = WHITESPACE.
+    ///     Например: ' ' или '\n'.
+    ///     Создаёт объект WsToken.
+    /// </summary>
     public WsToken(string ws = " ")
     {
         Original = ws;
         Type = TokenType.T_WS;
     }
 
+    /// <summary>
+    ///     WordToken = WHITESPACE.
+    ///     Например: ' ' или '\n'.
+    ///     Создаёт объект WsToken.
+    /// </summary>
     public WsToken(char ws)
     {
         Original = ws.ToString();
@@ -103,6 +112,11 @@ public class WsToken : Token
 #endif
 }
 
+/// <summary>
+///     WordToken = WHITESPACE.
+///     Например: ' ' или '\n'.
+///     Создаёт объект WsToken.
+/// </summary>
 public class EndToken : WsToken
 {
     public EndToken()

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 /// <summary>
-///     Пара из названия переменной и значения для присваивания
+///     Пара из названия переменной и значения для присваивания.
 /// </summary>
 public class VarPair
 {
@@ -15,17 +15,24 @@ public class VarPair
 
 /// <summary>
 ///     AssingmentToken = AssingmentChunkToken CommandToken
-///                      / AssingmentToken AssingmentToken
+///                      / AssingmentToken AssingmentToken.
 ///     <br>
-///     Например a=423 или a=423 b=x
+///     Например a=423 или a=423 b=x.
 /// </summary>
 public class AssingmentToken : Token
 {
     /// <summary>
-    ///     Массив присваиваний 
+    ///     Массив присваиваний.
     /// </summary>
     public List<VarPair> Values { get; }
 
+    /// <summary>
+    ///     AssingmentToken = AssingmentChunkToken CommandToken
+    ///                      / AssingmentToken AssingmentToken.
+    ///     Создаёт объект класса AssingmentToken.
+    ///     <br>
+    ///     Например a=423 или a=423 b=x.
+    /// </summary>
     public AssingmentToken(string name, string value)
     {
         Original = $"{name}={value}";
@@ -36,6 +43,13 @@ public class AssingmentToken : Token
         Type = TokenType.T_ASS;
     }
 
+    /// <summary>
+    ///     AssingmentToken = AssingmentChunkToken CommandToken
+    ///                      / AssingmentToken AssingmentToken.
+    ///     Создаёт объект класса AssingmentToken.
+    ///     <br>
+    ///     Например a=423 или a=423 b=x.
+    /// </summary>
     public AssingmentToken(AssingmentChunkToken left, CommandToken right)
     {
         Original = left.Original + right.Original;

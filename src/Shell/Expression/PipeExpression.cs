@@ -5,15 +5,31 @@ using Shell.Command;
 using Shell.Enviroment;
 using Shell;
 
+
+/// <summary>
+///     Класс PipeExpression отражает выражение, соответствующее
+///     пайплайну.
+/// </summary>
 public class PipeExpression : Expression
 {
     List<CommandExpression> _commands;
 
+    
+    /// <summary>
+    ///     Класс PipeExpression отражает выражение, соответствующее
+    ///     пайплайну.
+    ///     Создаёт объект класса PipeExpression.
+    /// </summary>
     public PipeExpression(CommandExpression left, CommandExpression right)
     {
         _commands = new List<CommandExpression>() { left, right };
     }
 
+    /// <summary>
+    ///     Класс PipeExpression отражает выражение, соответствующее
+    ///     пайплайну.
+    ///     Создаёт объект класса PipeExpression.
+    /// </summary>
     public PipeExpression(List<Expression> commands)
     {
         _commands = commands.Select(x => (CommandExpression)x).ToList();
@@ -32,6 +48,10 @@ public class PipeExpression : Expression
         return e;
     }
 
+    /// <summary>
+    ///     Конструирует объект для исполнения, соответствующий пайплайну,
+    ///     команд, обёрнутый в объект-результат.
+    /// </summary>
     public override Result<Box> Run(ShellEnvironment env)
     {
         List<Result<CmndCreator>> creators = _commands.Select(x => CommandResolver.FindCommand(x.Command, env)).ToList();

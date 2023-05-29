@@ -3,6 +3,10 @@ namespace Shell.Expression;
 using Shell.Command;
 using Shell.Enviroment;
 
+/// <summary>
+///     Класс CommandExpression отражает выражение, соответствующее
+///     некоторой команде.
+/// </summary>
 public class CommandExpression : Expression
 {
     private string _command;
@@ -13,6 +17,12 @@ public class CommandExpression : Expression
 
     public List<Assignment> Vars => _vars;
 
+
+    /// <summary>
+    ///     Класс CommandExpression отражает выражение, соответствующее
+    ///     некоторой команде.
+    ///     Создаёт объект класса.
+    /// </summary>
     public CommandExpression(List<Assignment> vars, string command, List<string> args)
     {
         _command = command;
@@ -22,6 +32,10 @@ public class CommandExpression : Expression
         Type = ExpTypes.Assignment;
     }
 
+    /// <summary>
+    ///     Конструирует объект для исполнения, соответствующий команде,
+    ///     обёрнутый в объект-результат.
+    /// </summary>
     public override Result<Box> Run(ShellEnvironment env)
     {
         var e = env.CreateView();

@@ -6,18 +6,33 @@ using System.IO;
 using Shell;
 
 
+/// <summary>
+/// Метод создания объектов-команд. 
+/// </summary>
 public delegate Command CmndCreator(TextReader r, TextWriter w, ShellEnvironment e);
+
+
+/// <summary>
+/// Класс CommandResolver хранит набор известных (стандартных) команд.
+/// </summary>
 public static class CommandResolver
 {
 
     private static Dictionary<string, CmndCreator> _builtInCommands =
         new Dictionary<string, CmndCreator>();
 
+    
+    /// <summary>
+    /// Сохранить создателя команд
+    /// </summary>
     public static void RegisterBuiltIn(string name, CmndCreator creator)
     {
         _builtInCommands[name] = creator;
     }
 
+    /// <summary>
+    /// Ищет команду, результат поиска передаёт в обертку Result.
+    /// </summary>
     public static Result<CmndCreator> FindCommand(string name, ShellEnvironment env)
     {
         if (_builtInCommands.ContainsKey(name))

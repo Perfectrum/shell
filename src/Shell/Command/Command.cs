@@ -4,36 +4,61 @@ using Shell;
 using Shell.Enviroment;
 using Shell.Command.Utils;
 
+/// <summary>
+///     Класс CommandOutputEvent используется, для управления
+///     выводом команды.
+/// </summary>
 public class CommandOutputEvent : EventArgs
 {
     public string? Text { get; private set; }
 
+    /// <summary>
+    ///     Сохраняет текст вывода.
+    /// </summary>
     public CommandOutputEvent(string text)
     {
         Text = text;
     }
 
+    /// <summary>
+    ///     Класс CommandOutputEvent используется, для управления
+    ///     выводом команды.
+    ///     Cоздаёт объект класса CommandOutputEvent.
+    /// </summary>
     public CommandOutputEvent(TextRecivedEvent e)
     {
         Text = e.Text;
     }
 }
 
+/// <summary>
+///     Класс CommandFinishedEvent используется, для инкапсуляции
+///     кода возврата программы.
+/// </summary>
 public class CommandFinishedEvent : EventArgs
 {
     public int Code { get; private set; }
-
+    
+    /// <summary>
+    ///     Класс CommandOutputEvent используется, для инкапсуляции
+    ///     кода возврата программы.
+    ///     Создаёт объект класса CommandOutputEvent.
+    /// </summary>
     public CommandFinishedEvent(int code)
     {
         Code = code;
     }
 }
 
+/// <summary>
+///     Класс атомарной команды которая может быть исполнена в выражении, например ls.
+/// </summary>
 public abstract class Command
 {
     protected StreamWriter _stdin;
     private bool _unsafeMode = false;
     private Result<string>? _sideEffect = null;
+
     public Result<string>? ShellSideEffect
     {
         get => _sideEffect;
@@ -58,6 +83,11 @@ public abstract class Command
 
     public Command(TextReader cin, TextWriter cout, ShellEnvironment env) : this(cin, new EventTextWriter(cout), env) { }
 
+    /// <summary>
+    ///     Класс атомарной команды которая может
+    ///     быть исполнена в выражении, например ls,
+    ///     создаёт объект класса команд. 
+    /// </summary>
     public Command(TextReader cin, EventTextWriter cout, ShellEnvironment env)
     {
         StdIn = cin;
@@ -69,7 +99,9 @@ public abstract class Command
 
     protected abstract int Go(string[] args);
 
-
+    /// <summary>
+    ///     Запускает исполнение команды.
+    /// </summary>
     public virtual Task<int> Run(string[] args, Task<int>? previous = null, bool last = false)
     {
         var job = previous;
@@ -94,13 +126,21 @@ public abstract class Command
         });
     }
 
+    /// <summary>
+    ///     Сохраняет с каким кодом завершилась программа.
+    /// </summary>
     protected void FireFinished(int code)
     {
         CommandFinished?.Invoke(new CommandFinishedEvent(code));
     }
 
+
     public virtual void CloseStdIn() { }
 
+    /// <summary>
+    ///     Передает некоторую строку 
+    ///     в ввод команде.
+    /// </summary>
     public virtual void WriteToCommand(string? msg)
     {
         if (msg == null)

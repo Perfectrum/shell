@@ -4,7 +4,7 @@ using Shell.Expression;
 using System.Collections.Generic;
 
 /// <summary>
-///     Всевозможные типы токенов
+///     Всевозможные типы токенов.
 /// </summary>
 public enum TokenType
 {
@@ -23,36 +23,37 @@ public enum TokenType
 }
 
 /// <summary>
-///     Представляет собой базовый класс для токенов,
-///     которые участвуют в парсинге выражения
+///     Токен - класс, соответствующий грамматике построения выражения.
+///     Пример токена: поглотить токены слева и справа от знака "=" и отметить их
+///     как переменная и значение присваивания.  
 /// </summary>
 abstract public class Token
 {
     /// <summary>
-    ///     Тип токена
+    ///     Тип токена.
     /// </summary>
     public TokenType Type { get; protected set; }
     /// <summary>
-    ///     Оригинальная строка из которой сконструирован данный токен
+    ///     Оригинальная строка из которой сконструирован данный токен.
     /// </summary>
     public string Original { get; set; } = "";
     /// <summary>
-    ///     Метод, который делает reduce текущего стэка и возвращает новый токен
+    ///     Метод, который делает reduce текущего стэка и возвращает новый токен.
     /// </summary>
-    /// <param name="x">Стэк, на текущий момент парсинга</param>
-    /// <returns>Новый токен или null, если новый токен сконструировать невозможно</returns>
+    /// <param name="x">Стэк, на текущий момент парсинга.</param>
+    /// <returns>Новый токен или null, если новый токен сконструировать невозможно.</returns>
     abstract public Token? Join(Stack<Token> x);
     /// <summary>
     ///     Превращает текущий токен в выражение для исполнения, 
     ///     если токен является конечным состоянием. ResultError в противном случае.
     /// </summary>
-    /// <returns>Выражение для вычисления в монаде Result</returns>
+    /// <returns>Выражение для вычисления в монаде Result.</returns>
     abstract public Result<Expression> Render();
 
 #if DEBUG
     /// <summary>
     ///     Строковое представление данного токена 
-    ///     в формате удобном для debug'а и тестирования
+    ///     в формате удобном для debug'а и тестирования.
     /// </summary>
     abstract public string ToDebugString();
 #endif

@@ -4,10 +4,14 @@ using Shell.Expression;
 using System.Collections.Generic;
 
 /// <summary>
-///     EqToken = '='
+///     EqToken = '='.
 /// </summary>
 public class EqToken : Token
 {
+    /// <summary>
+    ///     EqToken = '='.
+    ///     Создаёт объект класса EqToken.
+    /// </summary>
     public EqToken()
     {
         Original = "=";

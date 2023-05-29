@@ -9,6 +9,11 @@ using System.Collections.Generic;
 /// </summary>
 public class ErrorToken : Token
 {
+    /// <summary>
+    ///     Заведомо ложный токен. Сигнализирует о том, что 
+    ///     парсинг сломался.
+    ///     Создаёт объект класса ErrorToken.
+    /// </summary>
     public ErrorToken()
     {
         Original = "";

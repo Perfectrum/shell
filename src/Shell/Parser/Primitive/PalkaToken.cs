@@ -4,10 +4,14 @@ using Shell.Expression;
 using System.Collections.Generic;
 
 /// <summary>
-///     EqToken = '|'
+///     PalkaToken = '|'.
 /// </summary>
 public class PalkaToken : Token
 {
+    /// <summary>
+    ///     PalkaToken = '|'.
+    ///     Создаёт объект класса PalkaToken.
+    /// </summary>
     public PalkaToken()
     {
         Original = "|";

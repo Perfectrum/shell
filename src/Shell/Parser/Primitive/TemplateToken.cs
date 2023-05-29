@@ -8,16 +8,16 @@ using System.Linq;
 ///     Представляет собой токен, в который необходимо совершить подстановку 
 ///     переменной из окружения.
 ///     <br>
-///     Например: echo $a или x=$a
+///     Например: echo $a или x=$a.
 /// </summary>
 public class TemplateToken : Token
 {
     /// <summary>
-    ///     Список кусков, между которыми находятся переменнве для вставки
+    ///     Список кусков, между которыми находятся переменные для вставки.
     /// </summary>
     public List<string> Pattern { get; private set; }
     /// <summary>
-    ///     Список переменных, которые необходимо вставить
+    ///     Список переменных, которые необходимо вставить.
     /// </summary>
     public List<string> VarNames { get; }
 
@@ -58,10 +58,10 @@ public class TemplateToken : Token
     }
 
     /// <summary>
-    ///     Поглощает любой токен и превращает его в часть TemplateToken
+    ///     Поглощает любой токен и превращает его в часть TemplateToken.
     /// </summary>
-    /// <param name="x">Токен, который нужно поглотить</param>
-    /// <returns>Получившийся токен</returns>
+    /// <param name="x">Токен, который нужно поглотить.</param>
+    /// <returns>Получившийся токен.</returns>
     public Token Absorb(Token x)
     {
         Original += x.Original;
@@ -71,10 +71,10 @@ public class TemplateToken : Token
 
     /// <summary>
     ///     Принимает список строк, соответствующий значению переменных. 
-    ///     Порождает новую строку, в которой переменные заменены их значениями
+    ///     Порождает новую строку, в которой переменные заменены их значениями.
     /// </summary>
-    /// <param name="vars">Список значений</param>
-    /// <returns>Результирующая строка</returns>
+    /// <param name="vars">Список значений.</param>
+    /// <returns>Результирующая строка.</returns>
     public string Resolve(List<string> vars)
     {
         vars.Add("");

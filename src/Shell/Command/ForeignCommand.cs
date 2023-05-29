@@ -4,6 +4,9 @@ using Shell.Command.Utils;
 
 using System.Diagnostics;
 
+/// <summary>
+/// Класс ForeignCommand отвечает за вызов внешних программ.
+/// </summary>
 public class ForeignCommand : Command
 {
     private bool _hasStarted = false;
@@ -14,6 +17,10 @@ public class ForeignCommand : Command
 
     private string _commandName;
 
+    /// <summary>
+    /// Класс ForeignCommand отвечает за вызов внешних программ.
+    /// Создаёт объект класса ForeignCommand.
+    /// </summary>
     public ForeignCommand(string name, TextReader i, TextWriter o, ShellEnvironment e)
         : base(i, o, e)
     {
@@ -25,6 +32,10 @@ public class ForeignCommand : Command
         return 0;
     }
 
+
+    /// <summary>
+    /// Запускает внешнюю программу.
+    /// </summary>
     public override Task<int> Run(string[] args, Task<int>? e = null, bool last = false)
     {
         Process cmnd = new Process();
@@ -76,6 +87,9 @@ public class ForeignCommand : Command
         return cmndAwaiter.ContinueWith((x) => cmnd.ExitCode);
     }
 
+    /// <summary>
+    /// Передает потоку ввода программы некоторую строку.
+    /// </summary>
     public override void WriteToCommand(string? msg)
     {
         lock (_stdInWriteLock)
@@ -104,6 +118,9 @@ public class ForeignCommand : Command
         }
     }
 
+    /// <summary>
+    /// Закрывает ввод для комманды.
+    /// </summary>
     public override void CloseStdIn()
     {
         if (_hasStarted)

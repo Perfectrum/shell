@@ -4,11 +4,18 @@ using Shell.Expression;
 using System.Collections.Generic;
 
 /// <summary>
-///     Не участвует в грамматике. Нужен для корректировки содержимого 
-///     последнего токена
+///     Класс CorrectionToken не участвует в грамматике.
+///     Нужен для корректировки содержимого 
+///     последнего токена.
 /// </summary>
 public class CorrectionToken : Token
 {
+    /// <summary>
+    ///     Класс CorrectionToken не участвует в грамматике.
+    ///     Нужен для корректировки содержимого 
+    ///     последнего токена.
+    ///     Создаёт объект класса CorrectionToken.
+    /// </summary>
     public CorrectionToken(string val)
     {
         Original = val;

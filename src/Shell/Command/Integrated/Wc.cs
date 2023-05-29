@@ -2,8 +2,18 @@ namespace Shell.Command.Integrated;
 
 using Shell.Enviroment;
 
+/// <summary>
+///     Класс wc команды,
+///     команда отвечает за подсчет количества слов,
+///     символов и байтов в конкатеции содержимых переданных файлов.
+/// </summary>
 public class WcCommand : Command
 {
+    /// <summary>
+    ///     Создаёт объект класса wc команды,
+    ///     команда отвечает за подсчет количества слов,
+    ///     символов и байтов в конкатеции содержимых переданных файлов.
+    /// </summary>
     public WcCommand(TextReader i, TextWriter o, ShellEnvironment e)
         : base(i, o, e) { }
 

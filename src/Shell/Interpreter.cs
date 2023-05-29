@@ -7,19 +7,24 @@ using Shell.Command.Integrated;
 using Shell.Command.Hidden;
 
 /// <summary>
-/// Класс интерпретатора.
+///     Класс интерпретатора.
 /// </summary>
 /// <description>
 /// Инициализирует окружение и парсер. Принимает пользовательский ввод, передает его в парсер
-//  и извлекает их него объект результата (Result), с которым совершает некоторое предписанное
-//  действие
+/// и извлекает их него объект результата (Result), с которым совершает некоторое предписанное
+/// действие.
 /// </description>
-
 public class Interpreter
 {
     private ShellEnvironment _env = new ShellEnvironment();
     private ShellParser _parser = new ShellParser();
 
+    /// <summary>
+    ///     Класс интерпретатора инициализирует окружение и парсер. Принимает пользовательский ввод, передает его в парсер
+    ///     и извлекает их него объект результата (Result), с которым совершает некоторое предписанное
+    ///     действие.
+    ///     Создаёт объект класса интерпретатора.
+    /// </summary>
     public Interpreter()
     {
         CommandResolver.RegisterBuiltIn("echo", (r, w, e) => new EchoCommand(r, w, e));
@@ -33,7 +38,7 @@ public class Interpreter
     }
 
     /// <summary>
-    /// Обработка пользовательского ввода.
+    ///     Обработка пользовательского ввода.
     /// </summary>
     /// <param name="request">Пользовательский ввод в виде строки.</param>
     /// <returns>Объект класса Result - результат обработки команды.</returns>

@@ -4,14 +4,18 @@ using System.Collections.Generic;
 using Shell.Expression;
 
 /// <summary>
-///     WordToken = Word | WordToken WordToken
-///     <br>
-///     Например: echo или 'e'ch"o"
+///     WordToken = Word | WordToken WordToken.
+///     Например: echo или 'e'ch"o".
 /// </summary>
 public class WordToken : Token
 {
     public string Value { get; }
 
+    /// <summary>
+    ///     WordToken = Word | WordToken WordToken.
+    ///     Например: echo или 'e'ch"o".
+    ///     Создаёт объект класса WordToken.
+    /// </summary>
     public WordToken(string value)
     {
         Original = value;

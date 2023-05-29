@@ -5,14 +5,14 @@ using Shell;
 using System.Collections.Generic;
 
 /// <summary>
-///     AssingmentChunkToken = WordToken PalkaToken 
-///     <br>
-///     Например a=
+///     AssingmentChunkToken = WordToken PalkaToken.
+///     
+///     Например a=.
 /// </summary>
 public class PipeChunkToken : Token
 {
     /// <summary>
-    ///     Значение переменной для присваивания
+    ///     Значение переменной для присваивания.
     /// </summary>
     public CommandToken? Value { get; } = null;
     public PipeToken? Pipe { get; } = null;

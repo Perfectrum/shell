@@ -6,15 +6,20 @@ using System.Linq;
 
 /// <summary>
 ///     AssingmentToken = PipeChunkToken CommandToken
-///                      / PipeToken PipeToken
-///     <br>
-///     Например echo "fsdfds" | cat 
+///                      / PipeToken PipeToken.
+///     Например echo "fsdfds" | cat.
 /// </summary>
 public class PipeToken : Token
 {
 
     public List<CommandToken> Commands { get; set; }
 
+    /// <summary>
+    ///     AssingmentToken = PipeChunkToken CommandToken
+    ///                      / PipeToken PipeToken.
+    ///     Например echo "fsdfds" | cat.
+    ///     Создаёт объект класса PipeToken.
+    /// </summary>
     public PipeToken(PipeChunkToken left, CommandToken right)
     {
         Original = left.Original + right.Original;

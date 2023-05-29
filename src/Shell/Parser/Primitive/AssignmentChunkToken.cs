@@ -5,17 +5,23 @@ using Shell;
 using System.Collections.Generic;
 
 /// <summary>
-///     AssingmentChunkToken = WordToken EqToken 
+///     AssingmentChunkToken = WordToken EqToken.
 ///     <br>
-///     Например a=
+///     Например a=.
 /// </summary>
 public class AssingmentChunkToken : Token
 {
     /// <summary>
-    ///     Значение переменной для присваивания
+    ///     Значение переменной для присваивания.
     /// </summary>
     public string Value { get; }
 
+    /// <summary>
+    ///     AssingmentChunkToken = WordToken EqToken.
+    ///     Создаёт объект класса AssingmentChunkToken.
+    ///     <br>
+    ///     Например a=.
+    /// </summary>
     public AssingmentChunkToken(string value)
     {
         Original = $"{value}=";

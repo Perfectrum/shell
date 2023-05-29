@@ -8,7 +8,7 @@ using Shell;
 using Shell.Enviroment;
 
 /// <summary>
-///     Enum, который перечисляет состояния парсера
+///     Enum, который перечисляет состояния парсера.
 /// <summary>
 enum ParseState
 {
@@ -21,7 +21,7 @@ enum ParseState
 }
 
 /// <summary>
-///     Класс, который выполняет безусловный (без контекста) парсинг строки
+///     Класс, который выполняет безусловный (без контекста) парсинг строки.
 /// </summary>
 public class ParseAutomaton
 {
@@ -33,10 +33,10 @@ public class ParseAutomaton
     private bool escaped = false;
 
     /// <summary>
-    ///     Метод, который запускает парсинг
+    ///     Метод, который запускает парсинг.
     /// </summary>
-    /// <param name="input">Входная строка</param>
-    /// <returns> Стэк с результатом парсинга</returns>
+    /// <param name="input">Входная строка.</param>
+    /// <returns> Стэк с результатом парсинга.</returns>
     public Stack<Token> Run(string input)
     {
         foreach (var s in input.Trim())
@@ -247,19 +247,20 @@ public class ParseAutomaton
 }
 
 /// <summary>
-///     Класс <c>ShellParser</c> представляет собой объект, который преоразует строку в представление
-///     готовое для исполнения интерпретатором
+///     Класс <c>ShellParser</c> представляет собой объект, 
+///     который преобразует строку в представление,
+///     готовое для исполнения интерпретатором.
 /// </summary>
 public class ShellParser
 {
 
     /// <summary>
-    ///    Преобразует входную строку в выражение, готовое к исполнению
+    ///    Преобразует входную строку в выражение, готовое к исполнению.
     /// </summary>
-    /// <param name="input">Входная строка</param>
-    /// <param name="env">Контекст. Нужен для разрешения подстановок</param>
+    /// <param name="input">Входная строка.</param>
+    /// <param name="env">Контекст. Нужен для разрешения подстановок.</param>
     /// <returns>
-    ///    <c>Expression</c> завернутый в монаду <c>Result</c>
+    ///    <c>Expression</c> завернутый в монаду <c>Result</c>.
     /// </returns>
     public Result<Expression> Parse(string? input, ShellEnvironment env)
     {

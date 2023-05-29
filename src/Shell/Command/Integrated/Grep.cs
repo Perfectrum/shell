@@ -5,8 +5,16 @@ using CliCommand = System.CommandLine.Command;
 
 namespace Shell.Command.Integrated;
 
+/// <summary>
+///     Класс grep команды,
+///     команда отвечает за поиск паттернов в строке или содержимом файла.
+/// </summary>
 public class GrepCommand : Command
 {
+    /// <summary>
+    ///     Создаёт объект класса grep команды,
+    ///     команда отвечает за поиск паттернов в строке или содержимом файла.
+    /// </summary>
     public GrepCommand(TextReader i, TextWriter o, ShellEnvironment e)
         : base(i, o, e) { }
 
