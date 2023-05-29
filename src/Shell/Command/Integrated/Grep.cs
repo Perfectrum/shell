@@ -62,7 +62,7 @@ public class GrepCommand : Command
                 {
                     if (count > 0)
                     {
-                        Console.WriteLine(line);
+                        StdOut.WriteLine(line);
                         count--;
                         continue;
                     }
@@ -70,7 +70,7 @@ public class GrepCommand : Command
                     if (Regex.Matches(line, @patternArgumentValue, ignoreCase).Count > 0)
                     {
                         count = numOptionValue;
-                        Console.WriteLine(line);
+                        StdOut.WriteLine(line);
                     }
                 }
         }, wordOption, caseOption, numOption, patternArgument, inputArgument);

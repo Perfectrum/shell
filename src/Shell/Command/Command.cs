@@ -51,7 +51,7 @@ public class CommandFinishedEvent : EventArgs
 }
 
 /// <summary>
-///     Класс атомарной команды которая может быть исполнена в выражении, например ls.
+///     Класс атомарной команды которая может быть исполнена в выражении, например cd.
 /// </summary>
 public abstract class Command
 {
@@ -85,7 +85,7 @@ public abstract class Command
 
     /// <summary>
     ///     Класс атомарной команды которая может
-    ///     быть исполнена в выражении, например ls,
+    ///     быть исполнена в выражении, например cd,
     ///     создаёт объект класса команд. 
     /// </summary>
     public Command(TextReader cin, EventTextWriter cout, ShellEnvironment env)

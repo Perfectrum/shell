@@ -23,9 +23,17 @@ public class CommandTest
                             "a fortnite character"};
         string[] args3 = { "Spaces   test", "     1  2 " };
 
+        string[] args4 = { "AAAaaaaBBBBCCCcddd", "AAAaaaaBBBBCCCcddd",
+                            "AAAaaaaBBBBCCCcddd" };
+
+        string[] args5 = { "12345",
+                           "56789" };
+
         testEchoWithArgs(args1);
         testEchoWithArgs(args2);
         testEchoWithArgs(args3);
+        testEchoWithArgs(args4);
+        testEchoWithArgs(args5);
     }
 
     private string extractOutput(Command command,
@@ -54,8 +62,15 @@ public class CommandTest
                             "Whoop-di-scoop-di-poop"};
         string[] lines2 = {"If I need some racks, I'ma flip me some packs",
                             "I talk like I want and she don't say nothin' back"};
+        string[] lines3 = {"ABCDEFGHIJKabcdefghi",
+                            "ABCDEFGHIJKabcdefghi",
+                            "ABCDEFGHIJKabcdefghi",
+                            "ABCDEFGHIJKabcdefghi"};
+        string[] lines4 = Enumerable.Repeat("abcde fgh abcde fgh", 300).ToArray();                
         testCatWithText(lines1);
         testCatWithText(lines2);
+        testCatWithText(lines3);
+        testCatWithText(lines4);
     }
 
     private void testCatWithText(string[] lines)
@@ -118,6 +133,8 @@ public class CommandTest
         Assert.StartsWith(expected, RemoveSpaces(
             extractOutput(wc, new string[] { path }, stream)));
     }
+ 
+    
 
     private string RemoveSpaces(string input)
     {
