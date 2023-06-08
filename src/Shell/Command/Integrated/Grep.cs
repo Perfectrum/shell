@@ -1,7 +1,6 @@
 using Shell.Enviroment;
 using System.CommandLine;
 using System.Text.RegularExpressions;
-using CliCommand = System.CommandLine.Command;
 
 namespace Shell.Command.Integrated;
 
