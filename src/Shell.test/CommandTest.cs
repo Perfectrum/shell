@@ -113,6 +113,8 @@ public class CommandTest
         testWcWithText(lines2, expected2);
     }
     */
+
+    
     private void testWcWithText(string[] lines,
                                 string expected)
     {
@@ -133,6 +135,16 @@ public class CommandTest
             extractOutput(wc, new string[] { path }, stream)));
     }
 
+    [Fact]
+    public void testPipeExit()
+    {
+        var interpreter = new Interpreter();
+        var res = interpreter.ProcessRequest("echo aaa | exit");
+        Assert.Equal(Status.Exit, res.State);
+
+        res = interpreter.ProcessRequest("echo aaa | exit | echo bbb");
+        Assert.Equal(Status.Exit, res.State);
+    }
 
     [Fact]
     public void grepTestOnlyPattern()
